@@ -37,6 +37,7 @@ create table if not exists purchases (
 );
 
 create index if not exists purchases_video_id_idx on purchases (video_id);
+create index if not exists purchases_payment_intent_idx on purchases (stripe_payment_intent_id);
 
 -- ---------------------------------------------------------------------------
 -- Lock the tables down. The app connects with the database owner / service

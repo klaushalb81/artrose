@@ -6,7 +6,7 @@ import BookingForm from "@/components/BookingForm";
 export const metadata: Metadata = {
   title: "Kontakt og bestill time | Artrosefysio",
   description:
-    "Bestill time hos Artrosefysio. Telefon, e-post, åpningstider og adresse. Vi svarer samme dag.",
+    "Bestill time hos Artrosefysio. E-post, åpningstider og adresse. Vi svarer samme dag.",
 };
 
 const faq = [
@@ -40,17 +40,17 @@ export default function KontaktPage() {
         crumb="Kontakt"
         eyebrow="Kontakt og bestilling"
         title="Bestill time."
-        lede="Send oss noen detaljer, så ringer vi deg samme dag for å avtale tidspunkt. Du kan også ringe direkte."
+        lede="Send oss noen detaljer, så ringer vi deg samme dag for å avtale tidspunkt. Du kan også sende oss en e-post direkte."
       />
 
       <div className="stripe"></div>
 
       {/* QUICK CONTACT */}
       <SpecBand
+        columns={3}
         items={[
-          { value: "+47 00 00 00 00", label: "Telefon", valueStyle: { fontSize: 24 } },
-          { value: "post@artrosefysio.no", label: "E-post", valueStyle: { fontSize: 22 } },
-          { value: "Hovedgata 12", label: "Adresse · 0123 Oslo", valueStyle: { fontSize: 22 } },
+          { value: "artrosefysio@gmail.com", label: "E-post", valueStyle: { fontSize: 22 } },
+          { value: "Teglhageveien 29", label: "Sterk Kropp · 3125 Tønsberg", valueStyle: { fontSize: 22 } },
           { value: "Man–Fre 08–18", label: "Åpningstider", valueStyle: { fontSize: 22 } },
         ]}
       />
@@ -120,7 +120,7 @@ export default function KontaktPage() {
                 </svg>
                 <div className="pin">
                   <div className="dot"></div>
-                  <div className="label-pill">Hovedgata 12</div>
+                  <div className="label-pill">Teglhageveien 29</div>
                 </div>
               </div>
 
@@ -128,21 +128,17 @@ export default function KontaktPage() {
                 <div className="contact-row">
                   <span className="key">Adresse</span>
                   <span className="val">
-                    Hovedgata 12
+                    Sterk Kropp
                     <br />
-                    0123 Oslo
-                  </span>
-                </div>
-                <div className="contact-row">
-                  <span className="key">Telefon</span>
-                  <span className="val">
-                    <a href="tel:+4700000000">+47 00 00 00 00</a>
+                    Teglhageveien 29
+                    <br />
+                    3125 Tønsberg
                   </span>
                 </div>
                 <div className="contact-row">
                   <span className="key">E-post</span>
                   <span className="val">
-                    <a href="mailto:post@artrosefysio.no">post@artrosefysio.no</a>
+                    <a href="mailto:artrosefysio@gmail.com">artrosefysio@gmail.com</a>
                   </span>
                 </div>
                 <div className="contact-row">
@@ -153,16 +149,6 @@ export default function KontaktPage() {
                     Fredag 08:00–16:00
                     <br />
                     Lør–Søn stengt
-                  </span>
-                </div>
-                <div className="contact-row">
-                  <span className="key">Transport</span>
-                  <span className="val">
-                    T-bane: 7 min fra Oslo S
-                    <br />
-                    Buss 21 og 30 stopper rett utenfor
-                    <br />
-                    Parkering i Hovedgata P-hus
                   </span>
                 </div>
                 <div className="contact-row">
@@ -187,12 +173,12 @@ export default function KontaktPage() {
               </div>
               <h2 className="display-lg">Det folk lurer på.</h2>
               <p className="body" style={{ marginTop: 20, maxWidth: 380 }}>
-                Ring oss på{" "}
+                Send oss en e-post på{" "}
                 <a
-                  href="tel:+4700000000"
+                  href="mailto:artrosefysio@gmail.com"
                   style={{ color: "var(--brand-red)", borderBottom: "1px solid currentColor" }}
                 >
-                  +47 00 00 00 00
+                  artrosefysio@gmail.com
                 </a>{" "}
                 hvis du ikke finner svaret.
               </p>

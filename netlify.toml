@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Netlify's Next.js runtime turns App Router pages and route handlers
+# (/api/checkout, /api/stripe/webhook, /watch/[token], ...) into serverless
+# functions. No long-running server is assumed.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

@@ -41,27 +41,20 @@ export default function OmPage() {
   return (
     <>
       <PageHero
-        crumb="Om oss"
+        crumb="Om Artrosefysio"
         eyebrow="Klinikken"
         title="Om Artrosefysio."
-        lede="Vi har bygget en klinikk med ett tydelig oppdrag: å levere Norges mest spesialiserte fysioterapi for deg med artrose."
+        lede="Artrosefysio er en klinikk med ett tydelig oppdrag: å levere Norges mest spesialiserte fysioterapi for deg med artrose."
       />
 
       <div className="stripe"></div>
 
       <SpecBand
+        columns={3}
         items={[
-          { value: "2014", label: "Etablert" },
-          { value: "6", label: "Fysioterapeuter" },
-          { value: "320 m²", label: "Klinikkareal" },
-          {
-            value: (
-              <>
-                100<sup>%</sup>
-              </>
-            ),
-            label: "Fokus på artrose",
-          },
+          { value: "2026", label: "Etablert" },
+          { value: "Øvelser", label: "du kan gjøre på egenhånd når det passer deg." },
+          { value: "Online", label: "Mulighet for onlinekonsultasjon eller på klinikk" },
         ]}
       />
 
@@ -79,20 +72,18 @@ export default function OmPage() {
             </aside>
             <div className="article-body">
               <p>
-                Artrosefysio ble grunnlagt i 2014 av en gruppe fysioterapeuter som hadde sett det samme om og om
-                igjen: pasienter med artrose fikk for ofte enten generelle øvelser uten oppfølging, eller beskjed om
-                å «leve med det» fram til en eventuell operasjon.
+                Artrosefysio ble grunnlagt i 2026 inspirert av tilgangen til trening av artrosepasienter i Danmark.
               </p>
               <p>
-                Vi visste at forskningen pekte i en annen retning. Riktig dosert trening, kombinert med kunnskap og
-                oppfølging, har den best dokumenterte effekten på artrosesmerter — og kan i mange tilfeller utsette
-                eller forhindre kirurgi helt.
+                Vi vet at forskningen forteller oss at trening gjør gode ting for kne og hofteartrose. Riktig dosert
+                trening, kombinert med kunnskap og oppfølging, har den best dokumenterte effekten på artrosesmerter
+                — og kan i mange tilfeller utsette eller forhindre kirurgi helt.
               </p>
               <p>
-                Derfor bygget vi en klinikk hvor{" "}
-                <strong>artrose ikke er ett av mange tilbud — det er hele spesialiteten.</strong> Hver fysioterapeut
-                hos oss er sertifisert i AktivA-programmet, holder seg oppdatert på internasjonal forskning og
-                behandler artrose hver eneste dag.
+                Artrosefysio er ikke et sted hvor{" "}
+                <strong>artrose er ett av mange tilbud — det er hele spesialiteten.</strong> Sertifisert i
+                AktivA-programmet og det danske alternativet, GLAD, gjør at du er i trygge hender med dine
+                leddplager.
               </p>
 
               <div className="callout">
@@ -110,14 +101,13 @@ export default function OmPage() {
                   oppdatert forskning.
                 </li>
                 <li>
-                  <strong>Tydelig kommunikasjon.</strong> Du får en plan du forstår, med målbare delmål.
+                  <strong>Tydelig kommunikasjon.</strong> Du får en plan du forstår, med enkle øvelser til ditt nivå.
                 </li>
                 <li>
                   <strong>Aktiv pasient.</strong> Trening — ikke passive teknikker — er kjernen i forløpet ditt.
                 </li>
                 <li>
-                  <strong>Vedvarende effekt.</strong> Vi måler progresjon og gir deg verktøy som varer lenger enn
-                  behandlingen.
+                  <strong>Vedvarende effekt.</strong> Vi gir deg verktøy som varer lenger enn behandlingen.
                 </li>
               </ul>
             </div>
@@ -132,7 +122,7 @@ export default function OmPage() {
         <div className="container">
           <div className="section-head">
             <div className="label">
-              <span className="stripe-inline"></span> Teamet
+              <span className="stripe-inline"></span> Om Artrosefysio
             </div>
             <h2 className="display-lg">Møt fysioterapeutene.</h2>
             <p className="lede">

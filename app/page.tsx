@@ -74,8 +74,8 @@ export default function Home() {
         </div>
 
         <div className="hero-meta">
-          <span className="caption">Klinikk Oslo · Etabl. 2014</span>
-          <span className="ratio">N 59°54′ E 10°45′</span>
+          <span className="caption">Klinikk Tønsberg</span>
+          <span className="ratio">Etabl. 2026</span>
         </div>
       </section>
 
@@ -124,7 +124,7 @@ export default function Home() {
               <br />
               oppfølging
               <br />
-              for fire ledd.
+              for kne og hofte.
             </h2>
             <p className="lede">
               Hele klinikkens fokus er artrose. Velg den kroppsdelen som plager deg — vi har et målrettet program
@@ -132,7 +132,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="models-grid">
+          <div className="models-grid models-grid-2">
             <article className="model-card">
               <div className="model-photo">
                 <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
@@ -217,31 +217,21 @@ export default function Home() {
               <div className="num">
                 01<span className="accent">.</span>
               </div>
-              <h3>Grundig undersøkelse</h3>
-              <p>
-                Vi kartlegger smerter, bevegelighet, styrke og funksjon — og snakker om hva som er viktig for deg å
-                mestre.
-              </p>
+              <h3>Informasjon</h3>
+              <p>Grundig informasjon om din lidelse.</p>
             </div>
             <div className="step">
               <div className="num">
                 02<span className="accent">.</span>
               </div>
-              <h3>Individuell plan</h3>
-              <p>
-                Du får et skreddersydd program: trening, manuell behandling, råd om aktivitet og praktiske
-                tilpasninger.
-              </p>
+              <h3>Øvelser</h3>
+              <p>Gode øvelser tilpasset ditt nivå.</p>
             </div>
             <div className="step">
               <div className="num">
                 03<span className="accent">.</span>
               </div>
-              <h3>Tett oppfølging</h3>
-              <p>
-                Vi justerer underveis, måler framgang og sørger for at du beholder gevinsten lenge etter
-                behandlingen.
-              </p>
+              <p>Tren når det passer deg, og ha oppfølging ved behov.</p>
             </div>
           </div>
           <div style={{ marginTop: 48 }}>
@@ -304,11 +294,10 @@ export default function Home() {
                 <li>Sertifiserte AktivA-instruktører</li>
                 <li>Manuellterapi og treningsbehandling under ett tak</li>
                 <li>Korte ventetider og direkteoppgjør med HELFO</li>
-                <li>Tett samarbeid med fastleger og ortopeder</li>
               </ol>
 
               <Link href="/om" className="text-link">
-                Møt teamet
+                Møt Artrosefysio
               </Link>
             </div>
           </div>
@@ -377,8 +366,8 @@ export default function Home() {
         title="Klar for færre smerter og mer bevegelse?"
         lede="Bestill en uforpliktende vurderingstime. Vi ringer deg samme dag for å avtale tidspunkt som passer."
         secondary={
-          <a href="tel:+4700000000" className="btn">
-            +47 00 00 00 00
+          <a href="mailto:artrosefysio@gmail.com" className="btn">
+            Send e-post
           </a>
         }
       />

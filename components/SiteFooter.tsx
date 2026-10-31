@@ -34,10 +34,7 @@ export default function SiteFooter() {
             <h4>Klinikken</h4>
             <ul>
               <li>
-                <Link href="/om">Om oss</Link>
-              </li>
-              <li>
-                <Link href="/om#team">Teamet</Link>
+                <Link href="/om">Om Artrosefysio</Link>
               </li>
               <li>
                 <Link href="/kontakt">Bestill time</Link>
@@ -48,18 +45,16 @@ export default function SiteFooter() {
             <h4>Kontakt</h4>
             <ul>
               <li>
-                <a href="tel:+4700000000">+47 00 00 00 00</a>
+                <a href="mailto:artrosefysio@gmail.com">artrosefysio@gmail.com</a>
               </li>
-              <li>
-                <a href="mailto:post@artrosefysio.no">post@artrosefysio.no</a>
-              </li>
-              <li>Hovedgata 12, 0123 Oslo</li>
+              <li>Sterk Kropp</li>
+              <li>Teglhageveien 29, 3125 Tønsberg</li>
               <li>Man–Fre 08:00–18:00</li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <span className="caption">© {year} Artrosefysio AS · Org. 000 000 000</span>
+          <span className="caption">© {year} Artrosefysio · Org. 000 000 000</span>
           <span className="caption">
             <a href="#">Personvern</a> · <a href="#">Cookies</a> · NO
           </span>

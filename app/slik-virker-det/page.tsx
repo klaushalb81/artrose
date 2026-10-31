@@ -32,15 +32,9 @@ export default function SlikVirkerDetPage() {
 
       {/* SPEC: TIDSLINJE */}
       <SpecBand
+        columns={3}
+        compact
         items={[
-          {
-            value: (
-              <>
-                60<sup>min</sup>
-              </>
-            ),
-            label: "Første konsultasjon",
-          },
           {
             value: (
               <>
@@ -52,12 +46,12 @@ export default function SlikVirkerDetPage() {
           {
             value: (
               <>
-                1–2<sup>/uke</sup>
+                1–3<sup>/uke</sup>
               </>
             ),
             label: "Anbefalt frekvens",
           },
-          { value: "A", label: "Evidensbasert metode" },
+          { value: "Evidensbasert metode" },
         ]}
       />
 
@@ -80,32 +74,16 @@ export default function SlikVirkerDetPage() {
               <div style={stepNumberStyle}>
                 01<span className="text-accent">.</span>
               </div>
-              <div className="label" style={{ marginTop: 16 }}>
-                Undersøkelse
-              </div>
               <h2 className="display-md" style={{ marginTop: 24 }}>
-                Vi finner ut hva som faktisk skjer.
+                Grundig Informasjon.
               </h2>
             </aside>
             <div className="article-body">
+              <h3 style={{ marginTop: 0 }}>Informasjon om din diagnose og hva som påvirker plagene.</h3>
               <p>
-                Den første timen tar 60 minutter og består av tre deler: samtale, klinisk undersøkelse, og en åpen
-                samtale om hva du ønsker å oppnå.
+                Du vil få en bedre forståelse om hvordan du skal forholde deg til dine plager og hva du kan
+                forvente.
               </p>
-              <h3>Hva inngår</h3>
-              <ul>
-                <li>Sykehistorie og kartlegging av smerter, stivhet og funksjon</li>
-                <li>Klinisk testing av leddets bevegelighet, styrke og stabilitet</li>
-                <li>Funksjonelle tester (gange, knebøy, trapper, løft)</li>
-                <li>Mål­setting basert på din hverdag</li>
-                <li>En tydelig forklaring av hva vi finner — og hva det betyr</li>
-              </ul>
-              <div className="callout">
-                <span className="label">Du går herfra med</span>
-                <p>
-                  En klar diagnose, en realistisk forventning, og et utkast til behandlingsplan vi finpusser sammen.
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -123,7 +101,7 @@ export default function SlikVirkerDetPage() {
                 Behandling
               </div>
               <h2 className="display-md" style={{ marginTop: 24 }}>
-                Skreddersydd plan, levert i klinikken.
+                Øvelser på ditt nivå - der du er i dag
               </h2>
             </aside>
             <div className="article-body">
@@ -135,11 +113,6 @@ export default function SlikVirkerDetPage() {
               <ul>
                 <li>Spesifikke styrke- og bevegelighetsøvelser for det affiserte leddet</li>
                 <li>Gradvis progresjon — vi starter der du er i dag</li>
-                <li>Veiledet trening i klinikken, med program du gjør hjemme mellom timene</li>
-              </ul>
-              <h3>Manuell behandling (støtte)</h3>
-              <ul>
-                <li>Mobilisering og bløtdelsbehandling der det lindrer</li>
                 <li>Hjelp til å komme i gang når smertene er for høye til å trene</li>
               </ul>
               <h3>Veiledning og kunnskap</h3>
@@ -171,21 +144,14 @@ export default function SlikVirkerDetPage() {
               <div className="label" style={{ marginTop: 16 }}>
                 Oppfølging
               </div>
-              <h2 className="display-md" style={{ marginTop: 24 }}>
-                Vi måler det, så det blir varig.
-              </h2>
             </aside>
             <div className="article-body">
-              <p>
-                Vi gjentar de samme testene fra første time underveis, så du ser progresjonen i tall — ikke bare i
-                magefølelse.
-              </p>
-              <h3>Hva du får underveis</h3>
+              <h3 style={{ marginTop: 0 }}>Hva du får underveis</h3>
               <ul>
                 <li>Justering av program ettersom du blir sterkere</li>
-                <li>Re-testing hver 3.–4. uke med konkrete tall</li>
                 <li>Hjemmeprogram som vokser med deg</li>
                 <li>Tilgang til veiledning også mellom timene</li>
+                <li>Mulighet for online konsultasjon eller besøk i klinikken</li>
               </ul>
               <h3>Etter forløpet</h3>
               <ul>
@@ -295,9 +261,7 @@ export default function SlikVirkerDetPage() {
             <div className="article-body">
               <p>For at programmet skal virke, må du være med. Det er ikke vanskelig — men det krever litt fra deg:</p>
               <ul>
-                <li>Møt opp på avtalte timer (eller gi beskjed i god tid)</li>
                 <li>Gjør hjemmeøvelsene 3–5 dager i uka, 15–20 minutter per økt</li>
-                <li>Gi ærlig tilbakemelding på hva som virker og ikke</li>
                 <li>Ha tålmodighet — varige endringer tar uker, ikke dager</li>
               </ul>
               <p>

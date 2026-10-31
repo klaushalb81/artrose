@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { href: "/om", label: "Om oss" },
+  { href: "/om", label: "Om Artrosefysio" },
   { href: "/hva-er-artrose", label: "Hva er artrose" },
   { href: "/slik-virker-det", label: "Slik virker det" },
   { href: "/priser", label: "Priser" },
+  { href: "/videoer", label: "Videoer" },
 ];
 
 export default function SiteHeader() {

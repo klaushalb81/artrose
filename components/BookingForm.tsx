@@ -75,8 +75,8 @@ export default function BookingForm() {
         <button type="submit" className="btn btn-filled">
           Send forespørsel <span className="arrow">→</span>
         </button>
-        <a href="tel:+4700000000" className="btn">
-          Ring oss i stedet
+        <a href="mailto:artrosefysio@gmail.com" className="btn">
+          Send e-post i stedet
         </a>
       </div>
 

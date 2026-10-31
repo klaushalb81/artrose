@@ -257,7 +257,7 @@ export default function PriserPage() {
               <div className="callout">
                 <span className="label">Spørsmål om priser?</span>
                 <p>
-                  Ring oss på +47 00 00 00 00 eller send en e-post. Vi svarer på alle praktiske spørsmål før du
+                  Send oss en e-post på artrosefysio@gmail.com. Vi svarer på alle praktiske spørsmål før du
                   bestiller.
                 </p>
               </div>
@@ -271,8 +271,8 @@ export default function PriserPage() {
         title="Klar til å starte?"
         lede="Bestill første konsultasjon i dag — vi finner en time som passer."
         secondary={
-          <a href="tel:+4700000000" className="btn">
-            +47 00 00 00 00
+          <a href="mailto:artrosefysio@gmail.com" className="btn">
+            Send e-post
           </a>
         }
       />

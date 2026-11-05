@@ -167,7 +167,7 @@ export default function OmPage() {
             </div>
             <h2 className="display-lg">Faglig forankring.</h2>
             <p className="lede">
-              Registrert fysioterapeut, sertifisert i artroseprogrammene i både Danmark og Norge.
+              Autorisert fysioterapeut, sertifisert i artroseprogrammene i både Danmark og Norge.
             </p>
           </div>
 
@@ -175,7 +175,7 @@ export default function OmPage() {
             <article className="mag-card">
               <span className="label">01 / Fysioterapeut</span>
               <blockquote style={{ fontSize: 17 }}>
-                Registrert fysioterapeut.
+                Autorisert fysioterapeut.
               </blockquote>
             </article>
             <article className="mag-card">

@@ -64,7 +64,7 @@ export default function BookingForm() {
         <label htmlFor="tidspunkt">Når passer det best for oss å ringe?</label>
         <select id="tidspunkt" name="tidspunkt" defaultValue="Når som helst i åpningstiden">
           <option>Når som helst i åpningstiden</option>
-          <option>Morgen (08–10)</option>
+          <option>Morgen (06:30–10)</option>
           <option>Formiddag (10–12)</option>
           <option>Ettermiddag (13–17)</option>
           <option>Kveld (etter 17)</option>

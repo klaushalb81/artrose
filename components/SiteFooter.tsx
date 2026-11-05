@@ -49,7 +49,8 @@ export default function SiteFooter() {
               </li>
               <li>Sterk Kropp</li>
               <li>Teglhageveien 29, 3125 Tønsberg</li>
-              <li>Man–Fre 08:00–18:00</li>
+              <li>Man, ons, fre 06:30–16:00</li>
+              <li>Tir, tor 06:30–19:00</li>
             </ul>
           </div>
         </div>

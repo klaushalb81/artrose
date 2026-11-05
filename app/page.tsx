@@ -291,8 +291,7 @@ export default function Home() {
 
               <ol className="editorial-points">
                 <li>Sertifisert i GLAD (Danmark) og AktivA (Norge)</li>
-                <li>Manuellterapi og treningsbehandling under ett tak</li>
-                <li>Korte ventetider og direkteoppgjør med HELFO</li>
+                <li>Manuell behandling og treningsbehandling under ett tak</li>
               </ol>
 
               <Link href="/om" className="text-link">

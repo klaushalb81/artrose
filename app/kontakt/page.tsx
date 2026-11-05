@@ -27,10 +27,6 @@ const faq = [
     q: "Hvilke betalingsmåter tar dere?",
     a: "Vipps, alle vanlige bankkort i klinikken, eller faktura på e-post uten gebyr.",
   },
-  {
-    q: "Tar dere imot HELFO og frikort?",
-    a: "Ja, vi har avtale med HELFO og frikort 2 godtas. Etter at du har nådd egenandelsgrensen er behandling gratis ut kalenderåret.",
-  },
 ];
 
 export default function KontaktPage() {
@@ -51,7 +47,7 @@ export default function KontaktPage() {
         items={[
           { value: "artrosefysio@gmail.com", label: "E-post", valueStyle: { fontSize: 22 } },
           { value: "Teglhageveien 29", label: "Sterk Kropp · 3125 Tønsberg", valueStyle: { fontSize: 22 } },
-          { value: "Man–Fre 08–18", label: "Åpningstider", valueStyle: { fontSize: 22 } },
+          { value: "Man–Fre fra 06:30", label: "Åpningstider", valueStyle: { fontSize: 22 } },
         ]}
       />
 
@@ -144,11 +140,11 @@ export default function KontaktPage() {
                 <div className="contact-row">
                   <span className="key">Åpningstider</span>
                   <span className="val">
-                    Man–Tor 08:00–18:00
+                    Man, ons, fre 06:30–16:00
                     <br />
-                    Fredag 08:00–16:00
+                    Tir, tor 06:30–19:00
                     <br />
-                    Lør–Søn stengt
+                    Lør–søn stengt
                   </span>
                 </div>
               </div>

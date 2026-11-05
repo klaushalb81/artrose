@@ -137,68 +137,22 @@ export default function OmPage() {
         </div>
       </section>
 
-      {/* ===================== EDITORIAL: KLINIKKEN ===================== */}
+      {/* ===================== KLINIKKEN: ADRESSE ===================== */}
       <section className="editorial">
         <div className="container">
-          <div className="editorial-grid">
-            <div>
-              <div className="label" style={{ marginBottom: 24 }}>
-                <span className="stripe-inline"></span> Klinikken
-              </div>
-              <h2 className="display-lg" style={{ marginBottom: 24 }}>
-                Bygget for trening, ikke kun behandling.
-              </h2>
-              <p className="body" style={{ fontSize: 18, maxWidth: 520 }}>
-                Klinikken vår på 320 m² er innredet med plass for både undersøkelse, manuell behandling og veiledet
-                trening. Du møter samme terapeut gjennom hele forløpet — fra første time til siste oppfølging.
-              </p>
-
-              <ol className="editorial-points">
-                <li>Egne behandlingsrom med ro og diskresjon</li>
-                <li>Treningssal med utstyr tilpasset alle nivå</li>
-                <li>Kort vei fra Oslo S — under 10 min med t-bane</li>
-                <li>Universell utforming og heistilgang i alle etasjer</li>
-              </ol>
-            </div>
-
-            <div className="editorial-art" aria-hidden="true">
-              <div className="badge">
-                <span className="stripe-inline"></span>
-                <span className="label" style={{ fontSize: 11 }}>
-                  Lokaler
-                </span>
-              </div>
-              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="currentColor" strokeWidth="1.2" fill="none">
-                  {/* Floor plan */}
-                  <rect x="40" y="40" width="320" height="420" />
-                  <line x1="40" y1="200" x2="220" y2="200" />
-                  <line x1="220" y1="40" x2="220" y2="320" />
-                  <line x1="220" y1="320" x2="360" y2="320" />
-                  <line x1="120" y1="200" x2="120" y2="460" />
-                  {/* Room labels */}
-                  <circle cx="280" cy="180" r="6" fill="#e8001c" stroke="none" />
-                </g>
-                <g fontFamily="monospace" fontSize="10" fill="rgba(255,255,255,0.5)" letterSpacing="1.5">
-                  <text x="60" y="120">
-                    BEHANDLINGSROM 1
-                  </text>
-                  <text x="60" y="260">
-                    BEHANDLINGSROM 2
-                  </text>
-                  <text x="240" y="180">
-                    TRENINGSSAL
-                  </text>
-                  <text x="240" y="380">
-                    RESEPSJON
-                  </text>
-                  <text x="140" y="380">
-                    VENTEROM
-                  </text>
-                </g>
-              </svg>
-            </div>
+          <div className="label" style={{ marginBottom: 24 }}>
+            <span className="stripe-inline"></span> Klinikken
           </div>
+          <h2 className="display-lg" style={{ marginBottom: 24 }}>
+            Her finner du oss.
+          </h2>
+          <p className="body" style={{ fontSize: 18 }}>
+            Sterk Kropp
+            <br />
+            Teglhageveien 29
+            <br />
+            3125 Tønsberg
+          </p>
         </div>
       </section>
 
@@ -213,27 +167,27 @@ export default function OmPage() {
             </div>
             <h2 className="display-lg">Faglig forankring.</h2>
             <p className="lede">
-              Vi følger nasjonale og internasjonale standarder, og holder kompetansen oppdatert kontinuerlig.
+              Registrert fysioterapeut, sertifisert i artroseprogrammene i både Danmark og Norge.
             </p>
           </div>
 
           <div className="magazine-grid">
             <article className="mag-card">
-              <span className="label">01 / Helsedirektoratet</span>
+              <span className="label">01 / Fysioterapeut</span>
               <blockquote style={{ fontSize: 17 }}>
-                All behandling følger Helsedirektoratets nasjonale retningslinjer for artrose.
+                Registrert fysioterapeut.
               </blockquote>
             </article>
             <article className="mag-card">
-              <span className="label">02 / AktivA-programmet</span>
+              <span className="label">02 / GLAD</span>
+              <blockquote style={{ fontSize: 17 }}>
+                Sertifisert i GLAD — Godt liv med artrose i Danmark.
+              </blockquote>
+            </article>
+            <article className="mag-card">
+              <span className="label">03 / AktivA</span>
               <blockquote style={{ fontSize: 17 }}>
                 Sertifisert i AktivA — det norske programmet for artrosebehandling.
-              </blockquote>
-            </article>
-            <article className="mag-card">
-              <span className="label">03 / NFF</span>
-              <blockquote style={{ fontSize: 17 }}>
-                Medlemskap i Norsk Fysioterapeutforbund og forpliktelse til etiske retningslinjer.
               </blockquote>
             </article>
           </div>

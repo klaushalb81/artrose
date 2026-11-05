@@ -290,7 +290,7 @@ export default function Home() {
               </p>
 
               <ol className="editorial-points">
-                <li>Sertifisert AktivA-instruktør</li>
+                <li>Sertifisert i GLAD (Danmark) og AktivA (Norge)</li>
                 <li>Manuellterapi og treningsbehandling under ett tak</li>
                 <li>Korte ventetider og direkteoppgjør med HELFO</li>
               </ol>

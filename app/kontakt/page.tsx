@@ -151,10 +151,6 @@ export default function KontaktPage() {
                     Lør–Søn stengt
                   </span>
                 </div>
-                <div className="contact-row">
-                  <span className="key">Tilrettelegging</span>
-                  <span className="val">Heistilgang, universell utforming i alle etasjer</span>
-                </div>
               </div>
             </div>
           </div>

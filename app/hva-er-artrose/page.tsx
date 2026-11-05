@@ -7,7 +7,7 @@ import CtaBand from "@/components/CtaBand";
 export const metadata: Metadata = {
   title: "Hva er artrose? — Symptomer, årsaker og behandling | Artrosefysio",
   description:
-    "Lær hva artrose er, hvem som rammes, hvordan diagnosen stilles, og hva som faktisk hjelper. Skrevet av spesialister i artrose.",
+    "Lær hva artrose er, hvem som rammes, hvordan diagnosen stilles, og hva som faktisk hjelper. Skrevet av en fysioterapeut spesialisert på artrose.",
 };
 
 const myths = [
@@ -32,7 +32,7 @@ export default function HvaErArtrosePage() {
         crumb="Hva er artrose"
         eyebrow="Pasientveiledning"
         title="Hva er artrose?"
-        lede="Artrose er den vanligste leddsykdommen i Norge — og samtidig en av de mest misforståtte. Her er det du trenger å vite, forklart av spesialister."
+        lede="Artrose er den vanligste leddsykdommen i Norge — og samtidig en av de mest misforståtte. Her er det du trenger å vite, forklart av en fysioterapeut spesialisert på artrose."
       />
 
       <div className="stripe"></div>

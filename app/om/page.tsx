@@ -5,35 +5,17 @@ import SpecBand from "@/components/SpecBand";
 import CtaBand from "@/components/CtaBand";
 
 export const metadata: Metadata = {
-  title: "Om Artrosefysio — Klinikken og teamet",
+  title: "Om Artrosefysio — Fysioterapeut Klaus Halbakken",
   description:
-    "Artrosefysio er en spesialisert fysioterapiklinikk dedikert til behandling av artrose. Møt teamet, lær om klinikken og verdiene våre.",
+    "Artrosefysio er en spesialisert fysioterapiklinikk dedikert til behandling av artrose. Møt fysioterapeuten, lær om klinikken og verdiene våre.",
 };
 
 const team = [
   {
-    tag: "Fagleder",
-    name: "Marie Lien",
-    desc: "Manuellterapeut MNFF · spesialist i kne- og hofteartrose · 18 års erfaring.",
+    tag: "Fysioterapeut",
+    name: "Klaus Halbakken",
+    desc: "Fysioterapeut som har spesialisert seg på artrose gjennom utdannelse.",
     dot: { cx: 135, cy: 80 },
-  },
-  {
-    tag: "Fysioterapeut",
-    name: "Ola Strand",
-    desc: "AktivA-instruktør · spesialfelt hofte · master i klinisk helsearbeid.",
-    dot: { cx: 65, cy: 80 },
-  },
-  {
-    tag: "Fysioterapeut",
-    name: "Ingrid Berg",
-    desc: "Spesialist i kneartrose · sertifisert AktivA-veileder · 12 års erfaring.",
-    dot: { cx: 100, cy: 115 },
-  },
-  {
-    tag: "Fysioterapeut",
-    name: "Henrik Dahl",
-    desc: "Spesialist i pre- og postoperativ rehabilitering · idrettsfysioterapeut.",
-    dot: { cx: 115, cy: 100 },
   },
 ];
 
@@ -124,14 +106,13 @@ export default function OmPage() {
             <div className="label">
               <span className="stripe-inline"></span> Om Artrosefysio
             </div>
-            <h2 className="display-lg">Møt fysioterapeutene.</h2>
+            <h2 className="display-lg">Møt fysioterapeuten.</h2>
             <p className="lede">
-              Seks spesialister, én felles spesialitet. Alle våre terapeuter er sertifiserte AktivA-instruktører med
-              spesialisering i muskel- og skjelettsykdom.
+              Hos Artrosefysio møter du Klaus Halbakken — fra første time til siste oppfølging.
             </p>
           </div>
 
-          <div className="models-grid">
+          <div className="models-grid models-grid-2">
             {team.map((member) => (
               <article className="model-card" key={member.name}>
                 <div className="model-photo">
@@ -246,7 +227,7 @@ export default function OmPage() {
             <article className="mag-card">
               <span className="label">02 / AktivA-programmet</span>
               <blockquote style={{ fontSize: 17 }}>
-                Hele teamet er sertifisert i AktivA — det norske programmet for artrosebehandling.
+                Sertifisert i AktivA — det norske programmet for artrosebehandling.
               </blockquote>
             </article>
             <article className="mag-card">
@@ -261,7 +242,7 @@ export default function OmPage() {
 
       <CtaBand
         label="Klar?"
-        title="Møt teamet personlig."
+        title="Møt fysioterapeuten personlig."
         lede="Bestill en uforpliktende vurderingstime og bli kjent med fysioterapeuten din."
         secondary={
           <Link href="/hva-er-artrose" className="btn">

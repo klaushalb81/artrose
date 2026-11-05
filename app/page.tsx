@@ -286,8 +286,7 @@ export default function Home() {
                 ikke bare generell fysioterapi.
               </h2>
               <p className="body" style={{ fontSize: 18, maxWidth: 520 }}>
-                Vi er et team av fysioterapeuter som har spesialisert oss på artrose gjennom tusenvis av
-                konsultasjoner. Det betyr trygghet for deg — og behandling som faktisk virker.
+                Fysioterapeut som har spesialisert seg på artrose gjennom utdannelse. Det betyr trygghet for deg — og behandling som faktisk virker.
               </p>
 
               <ol className="editorial-points">

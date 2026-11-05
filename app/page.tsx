@@ -281,9 +281,9 @@ export default function Home() {
                 <span className="stripe-inline"></span> Om Artrosefysio
               </div>
               <h2 className="display-lg" style={{ marginBottom: 24 }}>
-                Artrose-spesialister.
+                Spesialist på artrose,
                 <br />
-                Ikke generell fysio.
+                ikke bare generell fysioterapi.
               </h2>
               <p className="body" style={{ fontSize: 18, maxWidth: 520 }}>
                 Vi er et team av fysioterapeuter som har spesialisert oss på artrose gjennom tusenvis av

@@ -81,6 +81,10 @@ The schema enables row-level security with no policies, so Supabase's auto REST
 API cannot read the tables. The app connects directly with the Postgres role from
 `DATABASE_URL`, which bypasses RLS.
 
+**Free-plan pausing:** Supabase pauses free projects after 7 days without database
+activity. `netlify/functions/keep-db-awake.mts` is a Netlify Scheduled Function that
+runs a tiny read once a day to prevent that. Delete it if you upgrade to Supabase Pro.
+
 ### 2. Stripe
 
 1. Stripe Dashboard → **Developers → API keys** → copy the **Secret key**

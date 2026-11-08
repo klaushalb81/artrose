@@ -4,7 +4,7 @@ import { requireAdmin } from "@/lib/admin-auth";
 import { getStreamVideo, type StreamVideoStatus } from "@/lib/cloudflare-api";
 import { createStreamSignedToken, streamIframeUrl } from "@/lib/cloudflare-stream";
 import { env } from "@/lib/env";
-import { formatPrice, listAllVideosWithStats, videoIdSchema } from "@/lib/videos";
+import { getVideoById, videoIdSchema } from "@/lib/videos";
 import { deleteProductAction } from "../../actions";
 import StatusPill from "../../StatusPill";
 import EditProductForm from "./EditProductForm";
@@ -15,7 +15,7 @@ export default async function EditProductPage({ params, searchParams }: PageProp
   const { lagret, feil } = await searchParams;
   if (!videoIdSchema.safeParse(id).success) notFound();
 
-  const video = (await listAllVideosWithStats()).find((v) => v.id === id);
+  const video = await getVideoById(id);
   if (!video) notFound();
 
   let status: StreamVideoStatus | null = null;
@@ -38,21 +38,20 @@ export default async function EditProductPage({ params, searchParams }: PageProp
   return (
     <>
       <p className="caption" style={{ marginBottom: 16 }}>
-        <Link href="/admin">← Produkter</Link>
+        <Link href="/admin">← Videopakken</Link>
       </p>
       <div className="admin-head">
         <div>
           <h1 className="display-sm">{video.title}</h1>
           <p className="caption" style={{ marginTop: 8 }}>
-            {video.sales} salg · {formatPrice({ price: video.revenue, currency: video.currency })} ·{" "}
-            <StatusPill status={status} />
+            {video.active ? "Synlig for kundene" : "Skjult for kundene"} · <StatusPill status={status} />
           </p>
         </div>
       </div>
 
-      {lagret && <p className="admin-ok">Produktet er opprettet.</p>}
+      {lagret && <p className="admin-ok">Videoen er lagt til i pakken.</p>}
       {feil === "solgt" && (
-        <p className="admin-error">Produktet er solgt og kan ikke slettes. Skjul det fra butikken i stedet.</p>
+        <p className="admin-error">Videoen hører til et tidligere enkeltkjøp og kan ikke slettes. Skjul den i stedet.</p>
       )}
 
       <div className="admin-columns">
@@ -61,7 +60,6 @@ export default async function EditProductPage({ params, searchParams }: PageProp
             id: video.id,
             title: video.title,
             description: video.description,
-            priceKr: (video.price / 100).toFixed(video.price % 100 === 0 ? 0 : 2).replace(".", ","),
             active: video.active,
           }}
         />
@@ -85,14 +83,16 @@ export default async function EditProductPage({ params, searchParams }: PageProp
             Cloudflare video-ID: <code>{video.cloudflare_video_uid}</code>
           </p>
 
-          {video.sales === 0 && (
-            <form action={deleteProductAction} style={{ marginTop: 32 }}>
-              <input type="hidden" name="id" value={video.id} />
-              <button type="submit" className="admin-link-btn admin-danger">
-                Slett produkt og video
-              </button>
-            </form>
-          )}
+          <form action={deleteProductAction} style={{ marginTop: 32 }}>
+            <input type="hidden" name="id" value={video.id} />
+            <button type="submit" className="admin-link-btn admin-danger">
+              Slett videoen permanent
+            </button>
+            <p className="caption" style={{ marginTop: 8 }}>
+              Kundene mister tilgang til denne videoen. Vil du bare ta den bort en stund, fjern haken for «Synlig for
+              kundene» i stedet.
+            </p>
+          </form>
         </div>
       </div>
     </>

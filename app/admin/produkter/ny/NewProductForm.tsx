@@ -62,25 +62,12 @@ export default function NewProductForm() {
     <form action={formAction} className="form admin-form">
       <div className="form-field">
         <label htmlFor="title">Tittel *</label>
-        <input id="title" name="title" required maxLength={200} placeholder="Kneartrose — treningsprogram" />
+        <input id="title" name="title" required maxLength={200} placeholder="Øvelse 1 — knebøy med støtte" />
       </div>
 
       <div className="form-field">
         <label htmlFor="description">Beskrivelse</label>
-        <textarea id="description" name="description" maxLength={2000} rows={5} placeholder="Hva lærer kunden, hvor lang er videoen, hvem passer den for …" />
-      </div>
-
-      <div className="form-row">
-        <div className="form-field">
-          <label htmlFor="priceKr">Pris (kr, inkl. mva) *</label>
-          <input id="priceKr" name="priceKr" required inputMode="decimal" placeholder="299" />
-        </div>
-        <div className="form-field">
-          <label>Tilgang</label>
-          <p className="caption" style={{ margin: "12px 0 0" }}>
-            6 måneder fra betaling
-          </p>
-        </div>
+        <textarea id="description" name="description" maxLength={2000} rows={5} placeholder="Hva viser videoen, hvor lang er den, hvem passer den for …" />
       </div>
 
       <div className="form-field">
@@ -153,14 +140,14 @@ export default function NewProductForm() {
       <input type="hidden" name="cloudflareVideoUid" value={uid} />
 
       <label className="admin-check">
-        <input type="checkbox" name="active" defaultChecked /> Vis i butikken med en gang
+        <input type="checkbox" name="active" defaultChecked /> Synlig for kundene med en gang
       </label>
 
       {state?.error && <p className="admin-error">{state.error}</p>}
 
       <div className="form-actions">
         <button type="submit" className="btn btn-filled" disabled={!canSubmit}>
-          {saving ? "Lagrer …" : "Lagre produkt"}
+          {saving ? "Lagrer …" : "Lagre video"}
         </button>
       </div>
     </form>

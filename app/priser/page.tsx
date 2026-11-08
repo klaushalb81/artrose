@@ -45,7 +45,7 @@ const offers: Offer[] = [
     name: "Konsultasjon på klinikken",
     desc: "Hos Sterk Kropp, Teglhageveien 29, 3125 Tønsberg.",
     price: "830 kr",
-    note: "Tønsberg",
+    note: "30 min · Tønsberg",
     href: "/kontakt",
     cta: "Bestill",
   },
@@ -124,7 +124,7 @@ export default function PriserPage() {
               <h3>Henvisning</h3>
               <ul>
                 <li>Du trenger ikke henvisning fra lege for å starte hos oss</li>
-                <li>Har du henvisning, ta den gjerne med — vi rapporterer til fastlegen din</li>
+                <li>Har du henvisning, ta den gjerne med</li>
               </ul>
 
               <div className="callout">

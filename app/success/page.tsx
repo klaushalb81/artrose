@@ -4,6 +4,7 @@ import CopyLinkButton from "@/components/CopyLinkButton";
 import RefreshPoller from "@/components/RefreshPoller";
 import { env } from "@/lib/env";
 import { formatDateNb } from "@/lib/format";
+import { getVideoPackage } from "@/lib/package";
 import { getPurchaseByCheckoutSession } from "@/lib/purchases";
 import { stripe } from "@/lib/stripe";
 
@@ -60,7 +61,7 @@ export default async function SuccessPage({ searchParams }: PageProps<"/success"
         <RefreshPoller />
         <Message
           eyebrow="Betaling mottatt"
-          title="Gjør klar videoen din …"
+          title="Gjør klar videoene dine …"
           text="Dette tar vanligvis bare noen sekunder. Siden oppdaterer seg selv. Hvis ingenting skjer innen ett minutt, send oss en e-post på artrosefysio@gmail.com, så ordner vi det."
         />
       </>
@@ -68,6 +69,7 @@ export default async function SuccessPage({ searchParams }: PageProps<"/success"
   }
 
   const watchUrl = `${env().SITE_URL}/watch/${purchase.viewingToken}`;
+  const pkg = await getVideoPackage();
 
   return (
     <section>
@@ -77,15 +79,15 @@ export default async function SuccessPage({ searchParams }: PageProps<"/success"
           <span className="label label-muted">Betaling fullført</span>
         </div>
         <h1 className="display-lg" style={{ marginBottom: 24 }}>
-          Videoen din er klar.
+          Videoene dine er klare.
         </h1>
         <p className="body" style={{ fontSize: 18, marginBottom: 32 }}>
-          Takk for kjøpet av <strong style={{ color: "var(--ink)" }}>{purchase.videoTitle}</strong>.
+          Takk for kjøpet av <strong style={{ color: "var(--ink)" }}>{pkg.title}</strong>.
         </p>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginBottom: 40 }}>
           <a href={watchUrl} className="btn btn-filled">
-            Se videoen din <span className="arrow">→</span>
+            Se videoene <span className="arrow">→</span>
           </a>
           <CopyLinkButton url={watchUrl} />
         </div>
@@ -95,8 +97,8 @@ export default async function SuccessPage({ searchParams }: PageProps<"/success"
           <p style={{ wordBreak: "break-all", fontFamily: "monospace", fontSize: 14 }}>{watchUrl}</p>
           <p style={{ marginTop: 16 }}>
             Lenken virker til og med <strong style={{ color: "var(--ink)" }}>{formatDateNb(purchase.expiresAt)}</strong>.
-            Lagre den som bokmerke, eller send den til deg selv på e-post, så kan du se videoen så ofte du vil fram
-            til da. Du trenger ikke passord eller innlogging.
+            Lagre den som bokmerke, eller send den til deg selv på e-post, så kan du se alle videoene så ofte du
+            vil fram til da. Du trenger ikke passord eller innlogging.
           </p>
         </div>
       </div>

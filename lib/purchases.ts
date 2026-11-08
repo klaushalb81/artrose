@@ -9,7 +9,6 @@ import {
   hashViewingToken,
   isValidViewingTokenFormat,
 } from "./viewing-token";
-import type { Video } from "./videos";
 
 /** How long a purchase grants access, as a Postgres interval literal. */
 export const ACCESS_INTERVAL = "6 months";
@@ -19,10 +18,12 @@ function encryptionKey(): Buffer {
 }
 
 type CreatePaidPurchaseInput = {
-  videoId: string;
   checkoutSessionId: string;
   paymentIntentId: string | null;
   customerEmail: string | null;
+  /** What Stripe charged, in øre, and its currency. */
+  amountTotal: number | null;
+  currency: string | null;
   /** When Stripe confirmed the payment. Access runs exactly 6 months from here. */
   paidAt: Date;
 };
@@ -32,7 +33,7 @@ type CreatePaidPurchaseResult =
   | { created: false };
 
 /**
- * Records a successful payment and mints the customer's viewing token.
+ * Records a successful package purchase and mints the customer's viewing token.
  *
  * Idempotent: `stripe_checkout_session_id` is UNIQUE, so a retried webhook hits
  * `ON CONFLICT DO NOTHING` and we report `created: false` without touching the
@@ -49,16 +50,20 @@ export async function createPaidPurchase(input: CreatePaidPurchaseInput): Promis
       stripe_checkout_session_id,
       stripe_payment_intent_id,
       customer_email,
+      amount_total,
+      currency,
       viewing_token_hash,
       viewing_token_encrypted,
       payment_status,
       paid_at,
       expires_at
     ) values (
-      ${input.videoId},
+      null,
       ${input.checkoutSessionId},
       ${input.paymentIntentId},
       ${input.customerEmail},
+      ${input.amountTotal},
+      ${input.currency},
       ${tokenHash},
       ${tokenEncrypted},
       'paid',
@@ -76,7 +81,6 @@ export async function createPaidPurchase(input: CreatePaidPurchaseInput): Promis
 export type SuccessPagePurchase = {
   viewingToken: string;
   expiresAt: Date;
-  videoTitle: string;
 };
 
 /**
@@ -84,12 +88,11 @@ export type SuccessPagePurchase = {
  * with Stripe that the session is paid; returns null until the webhook has run.
  */
 export async function getPurchaseByCheckoutSession(checkoutSessionId: string): Promise<SuccessPagePurchase | null> {
-  const rows = await sql()<{ viewing_token_encrypted: string; expires_at: Date; title: string }[]>`
-    select p.viewing_token_encrypted, p.expires_at, v.title
-    from purchases p
-    join videos v on v.id = p.video_id
-    where p.stripe_checkout_session_id = ${checkoutSessionId}
-      and p.payment_status = 'paid'
+  const rows = await sql()<{ viewing_token_encrypted: string; expires_at: Date }[]>`
+    select viewing_token_encrypted, expires_at
+    from purchases
+    where stripe_checkout_session_id = ${checkoutSessionId}
+      and payment_status = 'paid'
     limit 1
   `;
   const row = rows[0];
@@ -97,43 +100,31 @@ export async function getPurchaseByCheckoutSession(checkoutSessionId: string): P
   return {
     viewingToken: decryptViewingToken(row.viewing_token_encrypted, encryptionKey()),
     expiresAt: row.expires_at,
-    videoTitle: row.title,
   };
 }
 
-export type ViewingAccess =
-  | { status: "invalid" }
-  | { status: "expired" }
-  | { status: "ok"; video: Pick<Video, "id" | "title" | "cloudflare_video_uid">; expiresAt: Date };
+export type ViewingAccess = { status: "invalid" } | { status: "expired" } | { status: "ok"; expiresAt: Date };
 
 /**
  * Resolves a customer-supplied token from /watch/[token].
  *
  * Checks, in order: token shape → purchase exists (by hash) → payment is 'paid'
- * → not expired. Anything other than a paid, unexpired purchase is refused.
- * The token can be used any number of times until `expires_at`.
+ * → not expired. A valid token unlocks every active video in the package and
+ * can be used any number of times until `expires_at`.
  */
 export async function resolveViewingAccess(rawToken: unknown, now: Date = new Date()): Promise<ViewingAccess> {
   if (!isValidViewingTokenFormat(rawToken)) return { status: "invalid" };
 
-  const rows = await sql()<
-    { payment_status: string; expires_at: Date; id: string; title: string; cloudflare_video_uid: string }[]
-  >`
-    select p.payment_status, p.expires_at, v.id, v.title, v.cloudflare_video_uid
-    from purchases p
-    join videos v on v.id = p.video_id
-    where p.viewing_token_hash = ${hashViewingToken(rawToken)}
+  const rows = await sql()<{ payment_status: string; expires_at: Date }[]>`
+    select payment_status, expires_at
+    from purchases
+    where viewing_token_hash = ${hashViewingToken(rawToken)}
     limit 1
   `;
   const row = rows[0];
   const decision = decideAccess(row, now);
   if (decision !== "ok" || !row) return { status: decision === "expired" ? "expired" : "invalid" };
-
-  return {
-    status: "ok",
-    video: { id: row.id, title: row.title, cloudflare_video_uid: row.cloudflare_video_uid },
-    expiresAt: row.expires_at,
-  };
+  return { status: "ok", expiresAt: row.expires_at };
 }
 
 // ---------------------------------------------------------------------------
@@ -142,7 +133,9 @@ export async function resolveViewingAccess(rawToken: unknown, now: Date = new Da
 
 export type AdminPurchaseRow = {
   id: string;
-  video_title: string;
+  /** Title of the video for older single-video purchases; null for package purchases. */
+  video_title: string | null;
+  amount_total: number | null;
   customer_email: string | null;
   payment_status: string;
   paid_at: Date;
@@ -156,11 +149,11 @@ export type AdminPurchase = Omit<AdminPurchaseRow, "viewing_token_encrypted"> & 
 export async function listPurchasesForAdmin(search: string, limit = 200): Promise<AdminPurchase[]> {
   const pattern = `%${search.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
   const rows = await sql()<AdminPurchaseRow[]>`
-    select p.id, v.title as video_title, p.customer_email, p.payment_status, p.paid_at, p.expires_at,
-           p.stripe_payment_intent_id, p.viewing_token_encrypted
+    select p.id, v.title as video_title, p.amount_total, p.customer_email, p.payment_status, p.paid_at,
+           p.expires_at, p.stripe_payment_intent_id, p.viewing_token_encrypted
     from purchases p
-    join videos v on v.id = p.video_id
-    where ${search} = '' or p.customer_email ilike ${pattern} or v.title ilike ${pattern}
+    left join videos v on v.id = p.video_id
+    where ${search} = '' or p.customer_email ilike ${pattern}
     order by p.paid_at desc
     limit ${limit}
   `;
@@ -192,4 +185,16 @@ export async function markRefundedByPaymentIntent(paymentIntentId: string): Prom
     returning id
   `;
   return rows.length;
+}
+
+export type SalesStats = { paidCount: number; revenue: number };
+
+/** Number of paid (not refunded) purchases and the total charged, in øre. */
+export async function getSalesStats(): Promise<SalesStats> {
+  const rows = await sql()<{ paid_count: number; revenue: number }[]>`
+    select count(*)::int as paid_count, coalesce(sum(amount_total), 0)::int as revenue
+    from purchases
+    where payment_status = 'paid'
+  `;
+  return { paidCount: rows[0].paid_count, revenue: rows[0].revenue };
 }

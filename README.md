@@ -1,8 +1,8 @@
 # Artrosefysio
 
 Next.js (App Router) site for Artrosefysio, deployed on Netlify. Besides the
-information pages it sells access to training videos: pay once with Stripe, get a
-personal link that works for 6 months. No accounts, no passwords.
+information pages it sells access to training videos: pay once with Stripe for the video package, get a
+personal link to all videos that works for 6 months. No accounts, no passwords.
 
 ```bash
 npm install
@@ -16,13 +16,14 @@ npm run typecheck && npm run lint
 
 Log in with `ADMIN_PASSWORD`. From there you can:
 
-- **Products:** see every video product with price, visibility, Cloudflare status and sales.
-- **New product:** title, description, price in kr, and upload the video file. The file
-  goes straight from the browser to Cloudflare Stream (resumable tus upload, no size
-  limit from Netlify), and is created with *Require signed URLs* switched on.
-- **Edit:** change title/description/price, hide/show in the shop, preview the video.
-  Unsold products can be deleted (also deletes the Cloudflare video); sold products can
-  only be hidden, so existing customers keep access.
+- **Video package:** the one thing the shop sells — 6 months of access to *all*
+  visible videos, including ones added later. Edit its name, description and price
+  (default 1 500 kr) at the top of `/admin`.
+- **Add video:** title, description, and upload the file. It goes straight from the
+  browser to Cloudflare Stream (resumable tus upload, no size limit from Netlify), and is
+  created with *Require signed URLs* switched on.
+- **Edit video:** change title/description, hide/show it for customers, preview it, or
+  delete it (also deletes the Cloudflare video).
 - **Sales:** search by e-mail, copy a customer's link to resend it, extend access by
   another 6 months, jump to the payment in Stripe.
 

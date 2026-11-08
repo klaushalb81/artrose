@@ -4,10 +4,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { endAdminSession, requireAdmin, startAdminSession } from "@/lib/admin-auth";
 import { deleteStreamVideo, getStreamVideo, requireSignedUrls } from "@/lib/cloudflare-api";
+import { packageInputSchema, updateVideoPackage } from "@/lib/package";
 import { extendPurchase } from "@/lib/purchases";
 import {
   createVideo,
-  deleteUnsoldVideo,
+  deleteVideo,
   streamUidSchema,
   updateVideo,
   videoIdSchema,
@@ -37,14 +38,33 @@ export async function logoutAction(): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
-// Products
+// Video package (name, description, price)
+// ---------------------------------------------------------------------------
+
+export async function updatePackageAction(_prev: FormState, formData: FormData): Promise<FormState> {
+  await requireAdmin();
+  const parsed = packageInputSchema.safeParse({
+    title: formData.get("title") ?? "",
+    description: formData.get("description") ?? "",
+    priceKr: formData.get("priceKr") ?? "",
+  });
+  if (!parsed.success) return { error: firstError(parsed.error) };
+
+  await updateVideoPackage(parsed.data);
+  revalidatePath("/videoer");
+  revalidatePath("/priser");
+  revalidatePath("/admin");
+  return { ok: "Videopakken er oppdatert." };
+}
+
+// ---------------------------------------------------------------------------
+// Videos in the package
 // ---------------------------------------------------------------------------
 
 function parseVideoForm(formData: FormData) {
   return videoInputSchema.safeParse({
     title: formData.get("title") ?? "",
     description: formData.get("description") ?? "",
-    priceKr: formData.get("priceKr") ?? "",
     active: formData.get("active") === "on",
   });
 }
@@ -75,9 +95,9 @@ export async function createProductAction(_prev: FormState, formData: FormData):
   try {
     id = await createVideo({ ...parsed.data, cloudflareVideoUid: uid.data });
   } catch (error) {
-    if (String(error).includes("cloudflare_video_uid")) return { error: "Denne videoen er allerede brukt i et annet produkt." };
+    if (String(error).includes("cloudflare_video_uid")) return { error: "Denne videoen er allerede lagt til." };
     console.error("[admin] create product failed", error);
-    return { error: "Kunne ikke lagre produktet." };
+    return { error: "Kunne ikke lagre videoen." };
   }
 
   revalidatePath("/videoer");
@@ -103,7 +123,7 @@ export async function updateProductAction(_prev: FormState, formData: FormData):
 export async function deleteProductAction(formData: FormData): Promise<void> {
   await requireAdmin();
   const id = videoIdSchema.parse(formData.get("id"));
-  const result = await deleteUnsoldVideo(id);
+  const result = await deleteVideo(id);
   if (!result.deleted) redirect(`/admin/produkter/${id}?feil=solgt`);
   try {
     await deleteStreamVideo(result.uid);

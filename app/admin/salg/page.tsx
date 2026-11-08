@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/admin-auth";
 import { env } from "@/lib/env";
 import { formatDateNb } from "@/lib/format";
 import { listPurchasesForAdmin } from "@/lib/purchases";
+import { formatPrice } from "@/lib/videos";
 import { extendPurchaseAction } from "../actions";
 
 export default async function SalesPage({ searchParams }: PageProps<"/admin/salg">) {
@@ -25,7 +26,7 @@ export default async function SalesPage({ searchParams }: PageProps<"/admin/salg
           </p>
         </div>
         <form className="admin-search">
-          <input name="q" defaultValue={search} placeholder="Søk på e-post eller video" />
+          <input name="q" defaultValue={search} placeholder="Søk på e-post" />
           <button type="submit" className="btn">
             Søk
           </button>
@@ -41,7 +42,8 @@ export default async function SalesPage({ searchParams }: PageProps<"/admin/salg
               <tr>
                 <th>Dato</th>
                 <th>Kunde</th>
-                <th>Video</th>
+                <th>Kjøp</th>
+                <th className="num">Beløp</th>
                 <th>Gyldig til</th>
                 <th>Status</th>
                 <th></th>
@@ -55,7 +57,10 @@ export default async function SalesPage({ searchParams }: PageProps<"/admin/salg
                   <tr key={p.id}>
                     <td>{formatDateNb(p.paid_at)}</td>
                     <td>{p.customer_email ?? "—"}</td>
-                    <td>{p.video_title}</td>
+                    <td>{p.video_title ? `Enkeltvideo: ${p.video_title}` : "Videopakke"}</td>
+                    <td className="num">
+                      {p.amount_total != null ? formatPrice({ price: p.amount_total, currency: "nok" }) : "—"}
+                    </td>
                     <td>{formatDateNb(p.expires_at)}</td>
                     <td>
                       {p.payment_status === "refunded" ? (

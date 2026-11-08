@@ -22,7 +22,7 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
           </Link>
           {loggedIn && (
             <nav className="admin-nav">
-              <Link href="/admin">Produkter</Link>
+              <Link href="/admin">Videopakken</Link>
               <Link href="/admin/salg">Salg</Link>
               <Link href="/videoer" target="_blank">
                 Se butikken ↗

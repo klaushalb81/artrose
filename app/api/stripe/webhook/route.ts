@@ -2,7 +2,6 @@ import type Stripe from "stripe";
 import { env } from "@/lib/env";
 import { stripe } from "@/lib/stripe";
 import { createPaidPurchase, markRefundedByPaymentIntent } from "@/lib/purchases";
-import { getVideoById, videoIdSchema } from "@/lib/videos";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +11,7 @@ export const dynamic = "force-dynamic";
  * The single source of truth for "this customer has paid". Flow:
  *   1. verify the Stripe-Signature header against the raw body
  *   2. only act on sessions whose payment_status is "paid"
- *   3. resolve the video from session.metadata.video_id
+ *   3. check it is a video package session (metadata.product)
  *   4. insert the purchase + viewing token (idempotent on the session id)
  *
  * Always answer 2xx once the event was understood, even if it was a duplicate,
@@ -78,24 +77,20 @@ async function fulfillCheckoutSession(session: Stripe.Checkout.Session, eventTim
     return;
   }
 
-  const parsedVideoId = videoIdSchema.safeParse(session.metadata?.video_id);
-  if (!parsedVideoId.success) {
-    // Not one of our sessions (or metadata lost). Nothing to fulfil; don't retry.
-    console.error(`[webhook] session ${session.id} has no valid video_id in metadata`);
-    return;
-  }
-
-  const video = await getVideoById(parsedVideoId.data);
-  if (!video) {
-    console.error(`[webhook] session ${session.id} references unknown video ${parsedVideoId.data}`);
+  // Our package sessions carry metadata.product; older single-video sessions carry video_id.
+  const isOurs = session.metadata?.product === "video_package" || Boolean(session.metadata?.video_id);
+  if (!isOurs) {
+    // Not one of our sessions. Nothing to fulfil; don't retry.
+    console.error(`[webhook] session ${session.id} is not a video package purchase`);
     return;
   }
 
   const result = await createPaidPurchase({
-    videoId: video.id,
     checkoutSessionId: session.id,
     paymentIntentId: typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null),
     customerEmail: session.customer_details?.email ?? null,
+    amountTotal: session.amount_total ?? null,
+    currency: session.currency ?? null,
     paidAt: eventTime,
   });
 

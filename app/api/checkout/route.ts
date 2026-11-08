@@ -1,31 +1,28 @@
 import { NextResponse } from "next/server";
 import { env } from "@/lib/env";
+import { getVideoPackage } from "@/lib/package";
 import { stripe } from "@/lib/stripe";
-import { getActiveVideo, videoIdSchema } from "@/lib/videos";
+import { listActiveVideos } from "@/lib/videos";
 
 export const dynamic = "force-dynamic";
 
+/** Marks our Checkout Sessions so the webhook knows what was bought. */
+const PACKAGE_PRODUCT = "video_package";
+
 /**
- * POST /api/checkout  (plain HTML form submit: field "videoId")
+ * POST /api/checkout  (plain HTML form submit, no fields needed)
  *
- * Creates a Stripe Checkout Session for one video and redirects the customer to
- * Stripe. Price and currency always come from our database, never from the form.
+ * Creates a Stripe Checkout Session for the video package (6 months of access to
+ * all videos) and redirects the customer to Stripe. Name and price always come
+ * from our database, never from the form.
  */
-export async function POST(request: Request) {
-  let videoId: string;
+export async function POST() {
   try {
-    const form = await request.formData();
-    videoId = videoIdSchema.parse(form.get("videoId"));
-  } catch {
-    return NextResponse.redirect(new URL("/videoer?feil=ugyldig", env().SITE_URL), 303);
-  }
+    const [pkg, videos] = await Promise.all([getVideoPackage(), listActiveVideos()]);
+    if (videos.length === 0) {
+      return NextResponse.redirect(new URL("/videoer?feil=ingen", env().SITE_URL), 303);
+    }
 
-  const video = await getActiveVideo(videoId);
-  if (!video) {
-    return NextResponse.redirect(new URL("/videoer?feil=ugyldig", env().SITE_URL), 303);
-  }
-
-  try {
     const session = await stripe().checkout.sessions.create({
       mode: "payment",
       locale: "nb",
@@ -33,17 +30,16 @@ export async function POST(request: Request) {
         {
           quantity: 1,
           price_data: {
-            currency: video.currency,
-            unit_amount: video.price,
+            currency: pkg.currency,
+            unit_amount: pkg.price,
             product_data: {
-              name: video.title,
-              description: video.description || undefined,
+              name: pkg.title,
+              description: pkg.description || undefined,
             },
           },
         },
       ],
-      // The webhook uses this to know which video was bought.
-      metadata: { video_id: video.id },
+      metadata: { product: PACKAGE_PRODUCT },
       // {CHECKOUT_SESSION_ID} is substituted by Stripe. The success page verifies
       // the session with Stripe's API; it never trusts the URL alone.
       success_url: `${env().SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,

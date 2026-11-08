@@ -621,6 +621,32 @@ details.faq p {
 /* ============================================================
    PRICING TABLE
    ============================================================ */
+/* Video package (shop + watch page) */
+.package {
+  display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: 1px; background: var(--hairline-strong); border: 1px solid var(--hairline-strong);
+}
+.package-buy {
+  background: var(--surface-card); box-shadow: inset 0 3px 0 var(--brand-red);
+  padding: 36px 32px; display: flex; flex-direction: column; gap: 16px;
+}
+.package-list { background: var(--surface-soft); padding: 36px 32px; }
+.package-videos { list-style: none; counter-reset: v; margin: 16px 0 0; padding: 0; }
+.package-videos li {
+  counter-increment: v; display: grid; grid-template-columns: 40px 1fr; column-gap: 8px;
+  padding: 16px 0; border-bottom: 1px solid var(--hairline-strong);
+}
+.package-videos li:last-child { border-bottom: 0; }
+.package-videos li::before {
+  content: counter(v, decimal-leading-zero); grid-row: span 2;
+  font-family: monospace; color: var(--brand-red); font-size: 13px; padding-top: 3px;
+}
+.package-videos strong { color: var(--ink); font-weight: 500; }
+.package-videos span { color: var(--body); font-size: 14px; margin-top: 4px; }
+.package-videos a { display: contents; }
+.package-videos li.current strong { color: var(--brand-red); }
+@media (max-width: 900px) { .package { grid-template-columns: 1fr; } }
+
 /* Prices page: offer cards */
 .offer-grid {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));

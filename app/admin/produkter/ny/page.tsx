@@ -7,10 +7,10 @@ export default async function NewProductPage() {
   return (
     <>
       <p className="caption" style={{ marginBottom: 16 }}>
-        <Link href="/admin">← Produkter</Link>
+        <Link href="/admin">← Videopakken</Link>
       </p>
       <h1 className="display-sm" style={{ marginBottom: 32 }}>
-        Nytt videoprodukt
+        Ny video i pakken
       </h1>
       <NewProductForm />
     </>

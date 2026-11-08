@@ -15,7 +15,6 @@ type TeamMember = {
   tag: string;
   name: string;
   desc: string;
-  dot: { cx: number; cy: number };
   photo?: string;
 };
 
@@ -25,7 +24,6 @@ const team: TeamMember[] = [
     name: "Klaus Halbakken",
     desc:
       "Utdannet ved PH Metropol i København i 2015. Jobbet på klinikk i Danmark med GLAD-konseptet (Godt Liv med Artrose i Danmark) over flere år. Etter at jeg flyttet tilbake til Norge, tok jeg kurs hos AktivA, som jeg har jobbet med siden.",
-    dot: { cx: 135, cy: 80 },
     photo: "/klaus-halbakken.jpg",
   },
 ];
@@ -123,38 +121,26 @@ export default function OmPage() {
             </p>
           </div>
 
-          <div className="models-grid models-grid-2">
-            {team.map((member) => (
-              <article className="model-card" key={member.name}>
-                <div className={member.photo ? "model-photo has-photo" : "model-photo"}>
-                  {member.photo ? (
-                    <Image
-                      src={member.photo}
-                      alt={`${member.tag} ${member.name}`}
-                      fill
-                      sizes="(max-width: 900px) 100vw, 50vw"
-                      style={{ objectFit: "cover", objectPosition: "center 30%" }}
-                    />
-                  ) : (
-                  <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-                    <g stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round">
-                      <circle cx="100" cy="90" r="32" />
-                      <path d="M 60 200 Q 100 150 140 200 L 140 250 L 60 250 Z" />
-                      <line x1="100" y1="40" x2="100" y2="250" strokeOpacity="0.15" />
-                      <line x1="40" y1="125" x2="160" y2="125" strokeOpacity="0.15" />
-                      <circle cx={member.dot.cx} cy={member.dot.cy} r="4" fill="#e8001c" stroke="none" />
-                    </g>
-                  </svg>
-                  )}
+          {team.map((member) => (
+            <article className="profile" key={member.name}>
+              {member.photo && (
+                <div className="profile-photo">
+                  <Image
+                    src={member.photo}
+                    alt={`${member.tag} ${member.name}`}
+                    fill
+                    sizes="(max-width: 700px) 100vw, 340px"
+                    style={{ objectFit: "cover", objectPosition: "center 30%" }}
+                  />
                 </div>
-                <div className="model-body">
-                  <span className="model-tag">{member.tag}</span>
-                  <h3 className="model-title">{member.name}</h3>
-                  <p className="model-desc">{member.desc}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+              )}
+              <div className="profile-body">
+                <span className="model-tag">{member.tag}</span>
+                <h3 className="model-title">{member.name}</h3>
+                <p className="model-desc">{member.desc}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

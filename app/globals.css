@@ -404,7 +404,21 @@ section { padding: var(--pad-section) 0; }
   color: rgba(255,255,255,0.55);
 }
 .model-card:hover .model-photo svg { color: rgba(255,255,255,0.85); }
-.model-photo.has-photo::after { display: none; }
+/* Single-person profile (Om-siden) */
+.profile {
+  display: grid; grid-template-columns: 340px minmax(0, 1fr);
+  gap: 48px; align-items: center; max-width: 960px;
+}
+.profile-photo {
+  position: relative; aspect-ratio: 4 / 5;
+  border: 1px solid var(--hairline-strong); overflow: hidden;
+}
+.profile-body { display: flex; flex-direction: column; gap: 12px; }
+.profile-body .model-desc { font-size: 17px; max-width: 520px; }
+@media (max-width: 700px) {
+  .profile { grid-template-columns: 1fr; gap: 24px; }
+  .profile-photo { max-width: 340px; }
+}
 .model-body {
   padding: 28px 24px 32px;
   display: flex; flex-direction: column; gap: 12px;

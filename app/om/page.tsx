@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import SpecBand from "@/components/SpecBand";
@@ -10,12 +11,22 @@ export const metadata: Metadata = {
     "Artrosefysio er en spesialisert fysioterapiklinikk dedikert til behandling av artrose. Møt fysioterapeuten, lær om klinikken og verdiene våre.",
 };
 
-const team = [
+type TeamMember = {
+  tag: string;
+  name: string;
+  desc: string;
+  dot: { cx: number; cy: number };
+  photo?: string;
+};
+
+const team: TeamMember[] = [
   {
     tag: "Fysioterapeut",
     name: "Klaus Halbakken",
-    desc: "Fysioterapeut som har spesialisert seg på artrose gjennom utdannelse.",
+    desc:
+      "Utdannet ved PH Metropol i København i 2015. Jobbet på klinikk i Danmark med GLAD-konseptet (Godt Liv med Artrose i Danmark) over flere år. Etter at jeg flyttet tilbake til Norge, tok jeg kurs hos AktivA, som jeg har jobbet med siden.",
     dot: { cx: 135, cy: 80 },
+    photo: "/klaus-halbakken.jpg",
   },
 ];
 
@@ -115,7 +126,16 @@ export default function OmPage() {
           <div className="models-grid models-grid-2">
             {team.map((member) => (
               <article className="model-card" key={member.name}>
-                <div className="model-photo">
+                <div className={member.photo ? "model-photo has-photo" : "model-photo"}>
+                  {member.photo ? (
+                    <Image
+                      src={member.photo}
+                      alt={`${member.tag} ${member.name}`}
+                      fill
+                      sizes="(max-width: 900px) 100vw, 50vw"
+                      style={{ objectFit: "cover", objectPosition: "center 30%" }}
+                    />
+                  ) : (
                   <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round">
                       <circle cx="100" cy="90" r="32" />
@@ -125,6 +145,7 @@ export default function OmPage() {
                       <circle cx={member.dot.cx} cy={member.dot.cy} r="4" fill="#e8001c" stroke="none" />
                     </g>
                   </svg>
+                  )}
                 </div>
                 <div className="model-body">
                   <span className="model-tag">{member.tag}</span>

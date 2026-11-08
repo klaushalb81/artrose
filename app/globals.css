@@ -404,6 +404,7 @@ section { padding: var(--pad-section) 0; }
   color: rgba(255,255,255,0.55);
 }
 .model-card:hover .model-photo svg { color: rgba(255,255,255,0.85); }
+.model-photo.has-photo::after { display: none; }
 .model-body {
   padding: 28px 24px 32px;
   display: flex; flex-direction: column; gap: 12px;

@@ -1,55 +1,53 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 
 export const metadata: Metadata = {
-  title: "Priser og behandlingstyper | Artrosefysio",
+  title: "Priser | Artrosefysio",
   description:
-    "Oversikt over priser og behandlingstyper hos Artrosefysio.",
+    "Treningsvideoer med 6 måneders tilgang, online konsultasjon via Zoom og konsultasjon på klinikken i Tønsberg.",
 };
 
-const prices = [
+type Offer = {
+  tag: string;
+  name: string;
+  desc: string;
+  price: string;
+  note: string;
+  href: string;
+  cta: string;
+  featured?: boolean;
+};
+
+const offers: Offer[] = [
   {
-    name: "Førstegangsundersøkelse",
-    desc: "Grundig kartlegging, undersøkelse og oppstart av plan",
-    duration: "60 min",
-    price: "230 kr",
-    note: "",
+    tag: "Treningsvideoer",
+    name: "Videoprogram",
+    desc: "Tren hjemme når det passer deg. Du får en personlig lenke til videoene — ingen innlogging eller passord.",
+    price: "1 500 kr",
+    note: "6 måneders tilgang",
+    href: "/videoer",
+    cta: "Kjøp tilgang",
+    featured: true,
   },
   {
-    name: "Oppfølgingstime",
-    desc: "Behandling, veiledet trening og justering av program",
-    duration: "30 min",
-    price: "160 kr",
-    note: "",
+    tag: "Online",
+    name: "Online konsultasjon",
+    desc: "Konsultasjon med fysioterapeut over Zoom, uansett hvor du bor.",
+    price: "1 500 kr",
+    note: "45 min · Zoom",
+    href: "/kontakt",
+    cta: "Bestill",
   },
   {
-    name: "Lengre oppfølging",
-    desc: "Kombinasjon av manuell behandling og trening",
-    duration: "45 min",
-    price: "200 kr",
-    note: "",
-  },
-  {
-    name: "AktivA-treningsgruppe",
-    desc: "Veiledet trening i smågruppe — 12 økter over 6 uker",
-    duration: "60 min × 12",
-    price: "1 920 kr",
-    note: "Hele forløpet",
-  },
-  {
-    name: "Re-vurdering",
-    desc: "Måling av progresjon og oppdatert plan",
-    duration: "30 min",
-    price: "160 kr",
-    note: "",
-  },
-  {
-    name: "Hjemmebesøk",
-    desc: "Behandling i hjemmet ved sterkt nedsatt funksjon",
-    duration: "45 min",
-    price: "350 kr",
-    note: "+ reise",
+    tag: "Klinikk",
+    name: "Konsultasjon på klinikken",
+    desc: "Hos Sterk Kropp, Teglhageveien 29, 3125 Tønsberg.",
+    price: "830 kr",
+    note: "Tønsberg",
+    href: "/kontakt",
+    cta: "Bestill",
   },
 ];
 
@@ -58,9 +56,9 @@ export default function PriserPage() {
     <>
       <PageHero
         crumb="Priser"
-        eyebrow="Priser og takster"
+        eyebrow="Priser"
         title="Priser."
-        lede="Oversikt over behandlingstyper og priser. Ingen skjulte tillegg."
+        lede="Tren hjemme med videoprogrammet, eller møt fysioterapeuten online eller på klinikken i Tønsberg."
       />
 
       <div className="stripe"></div>
@@ -72,33 +70,25 @@ export default function PriserPage() {
             <div className="label">
               <span className="stripe-inline"></span> Priser
             </div>
-            <h2 className="display-lg">Behandlingstyper.</h2>
+            <h2 className="display-lg">Velg det som passer deg.</h2>
           </div>
 
-          <div className="price-table">
-            <div className="price-row head">
-              <div>Behandling</div>
-              <div>Varighet</div>
-              <div style={{ textAlign: "right" }}>Pris</div>
-            </div>
-            {prices.map((row) => (
-              <div className="price-row" key={row.name}>
-                <div className="name">
-                  {row.name}
-                  <span className="desc">{row.desc}</span>
+          <div className="offer-grid">
+            {offers.map((offer) => (
+              <article className={offer.featured ? "offer-card featured" : "offer-card"} key={offer.name}>
+                <span className="model-tag">{offer.tag}</span>
+                <h3 className="offer-name">{offer.name}</h3>
+                <p className="offer-desc">{offer.desc}</p>
+                <div className="offer-price">
+                  {offer.price}
+                  <small>{offer.note}</small>
                 </div>
-                <div className="duration">{row.duration}</div>
-                <div className="price">
-                  {row.price}
-                  {row.note && <small>{row.note}</small>}
-                </div>
-              </div>
+                <Link href={offer.href} className={offer.featured ? "btn btn-filled" : "btn"}>
+                  {offer.cta} <span className="arrow">→</span>
+                </Link>
+              </article>
             ))}
           </div>
-
-          <p className="caption" style={{ marginTop: 24 }}>
-            Endelig pris bekreftes ved bestilling.
-          </p>
         </div>
       </section>
 
@@ -152,11 +142,11 @@ export default function PriserPage() {
       <CtaBand
         label="Bestill"
         title="Klar til å starte?"
-        lede="Bestill første konsultasjon i dag — vi finner en time som passer."
+        lede="Kjøp tilgang til treningsvideoene, eller bestill en konsultasjon online eller i Tønsberg."
         secondary={
-          <a href="mailto:artrosefysio@gmail.com" className="btn">
-            Send e-post
-          </a>
+          <Link href="/videoer" className="btn">
+            Se videoene
+          </Link>
         }
       />
     </>

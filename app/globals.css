@@ -371,6 +371,16 @@ section { padding: var(--pad-section) 0; }
 }
 .callout .label { display: block; margin-bottom: 12px; color: var(--brand-red); }
 .callout p { color: var(--body-strong); font-size: 16px; font-weight: 400; margin: 0; }
+.callout-steps { list-style: none; counter-reset: step; margin: 0; padding: 0; }
+.callout-steps li {
+  counter-increment: step; position: relative; padding: 0 0 0 36px; margin: 0 0 12px;
+  color: var(--body-strong); font-size: 16px; font-weight: 400;
+}
+.callout-steps li:last-child { margin-bottom: 0; }
+.callout-steps li::before {
+  content: counter(step) "."; position: absolute; left: 0; top: 0;
+  color: var(--brand-red); font-weight: 700;
+}
 
 /* ============================================================
    MODELS / CARDS GRID

@@ -79,11 +79,14 @@ export default async function VideoerPage({ searchParams }: PageProps<"/videoer"
 
           <div className="callout" style={{ marginTop: 64 }}>
             <span className="label">Slik fungerer det</span>
-            <p>
-              1. Klikk «Kjøp tilgang» og betal trygt med kort. 2. Du kommer rett tilbake hit og får din personlige
-              lenke. 3. Lagre lenken (bokmerke eller e-post til deg selv) — den gir tilgang til alle videoene i 6
-              måneder, også nye videoer som legges ut i perioden.
-            </p>
+            <ol className="callout-steps">
+              <li>Klikk «Kjøp tilgang» og betal trygt med kort.</li>
+              <li>Du kommer rett tilbake hit og får din personlige lenke.</li>
+              <li>
+                Lagre lenken (bokmerke eller e-post til deg selv) — den gir tilgang til alle videoene i 6 måneder, også
+                nye videoer som legges ut i perioden.
+              </li>
+            </ol>
           </div>
         </div>
       </section>

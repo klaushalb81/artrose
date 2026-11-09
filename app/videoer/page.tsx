@@ -70,20 +70,10 @@ export default async function VideoerPage({ searchParams }: PageProps<"/videoer"
 
             <div className="package-list">
               <span className="label label-muted">Dette får du tilgang til</span>
-              {videos.length === 0 ? (
-                <p className="body" style={{ marginTop: 16 }}>
-                  Ingen videoer er lagt ut ennå.
-                </p>
-              ) : (
-                <ol className="package-videos">
-                  {videos.map((video) => (
-                    <li key={video.id}>
-                      <strong>{video.title}</strong>
-                      {video.description && <span>{video.description}</span>}
-                    </li>
-                  ))}
-                </ol>
-              )}
+              <p className="body" style={{ marginTop: 16, fontSize: 18, maxWidth: 560 }}>
+                Tilgang til alle øvelsene du trenger, samt informasjon om dine plager. Alle øvelser kommer med forslag
+                til progresjons- og regresjonsøvelser, avhengig av hva som passer deg.
+              </p>
             </div>
           </div>
 

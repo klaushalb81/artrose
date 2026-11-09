@@ -25,7 +25,7 @@ export default async function VideoerPage({ searchParams }: PageProps<"/videoer"
   return (
     <>
       <PageHero
-        crumb="Videoer"
+        crumb="Program"
         eyebrow="Treningsvideoer"
         title="Tren hjemme."
         lede="Én betaling gir deg tilgang til alle treningsvideoene i 6 måneder. Du får en personlig lenke som du kan åpne så mange ganger du vil — uten innlogging eller passord."

@@ -8,7 +8,7 @@ const navLinks = [
   { href: "/hva-er-artrose", label: "Hva er artrose" },
   { href: "/slik-virker-det", label: "Slik virker det" },
   { href: "/priser", label: "Priser" },
-  { href: "/videoer", label: "Videoer" },
+  { href: "/videoer", label: "Program" },
 ];
 
 export default function SiteHeader() {

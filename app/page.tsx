@@ -364,7 +364,7 @@ export default function Home() {
         title="Klar for færre smerter og mer bevegelse?"
         lede="Bestill en uforpliktende vurderingstime. Vi ringer deg samme dag for å avtale tidspunkt som passer."
         secondary={
-          <a href="mailto:artrosefysio@gmail.com" className="btn">
+          <a href="mailto:artrosefys@gmail.com" className="btn">
             Send e-post
           </a>
         }

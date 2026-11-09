@@ -124,8 +124,8 @@ export default function BookingForm() {
       {status === "error" && (
         <p className="admin-error" role="alert">
           Beklager, forespørselen kunne ikke sendes. Prøv igjen, eller send en e-post til{" "}
-          <a href="mailto:artrosefysio@gmail.com" style={{ textDecoration: "underline" }}>
-            artrosefysio@gmail.com
+          <a href="mailto:artrosefys@gmail.com" style={{ textDecoration: "underline" }}>
+            artrosefys@gmail.com
           </a>
           .
         </p>
@@ -133,7 +133,7 @@ export default function BookingForm() {
 
       <p className="caption" style={{ marginTop: 8 }}>
         Vi behandler personopplysninger konfidensielt iht. personvernloven. Skjemaet sendes til
-        artrosefysio@gmail.com.
+        artrosefys@gmail.com.
       </p>
     </form>
   );

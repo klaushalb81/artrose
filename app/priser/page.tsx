@@ -130,7 +130,7 @@ export default function PriserPage() {
               <div className="callout">
                 <span className="label">Spørsmål om priser?</span>
                 <p>
-                  Send oss en e-post på artrosefysio@gmail.com. Vi svarer på alle praktiske spørsmål før du
+                  Send oss en e-post på artrosefys@gmail.com. Vi svarer på alle praktiske spørsmål før du
                   bestiller.
                 </p>
               </div>

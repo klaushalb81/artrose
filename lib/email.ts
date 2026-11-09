@@ -4,7 +4,7 @@ import { emailEnv } from "./env";
 import { formatDateNb } from "./format";
 
 /**
- * Transactional e-mail, sent from artrosefysio@gmail.com through Gmail SMTP.
+ * Transactional e-mail, sent from artrosefys@gmail.com through Gmail SMTP.
  * Needs GMAIL_USER and GMAIL_APP_PASSWORD (see .env.example). Never throws:
  * a failed e-mail must not undo a purchase, so callers get a result instead.
  */

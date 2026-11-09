@@ -28,7 +28,7 @@ export default async function WatchPage({ params, searchParams }: PageProps<"/wa
   const access = await resolveViewingAccess(token);
 
   if (access.status === "invalid") {
-    return <Message title="Videolenken er ikke gyldig." text="Sjekk at du har kopiert hele lenken fra bekreftelsen din. Hvis du mener dette er feil, send oss en e-post på artrosefysio@gmail.com." />;
+    return <Message title="Videolenken er ikke gyldig." text="Sjekk at du har kopiert hele lenken fra bekreftelsen din. Hvis du mener dette er feil, send oss en e-post på artrosefys@gmail.com." />;
   }
 
   if (access.status === "expired") {

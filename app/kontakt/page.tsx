@@ -49,7 +49,7 @@ export default function KontaktPage() {
       <SpecBand
         columns={3}
         items={[
-          { value: "artrosefysio@gmail.com", label: "E-post", valueStyle: { fontSize: 22 } },
+          { value: "artrosefys@gmail.com", label: "E-post", valueStyle: { fontSize: 22 } },
           { value: "Teglhageveien 29", label: "Sterk Kropp · 3125 Tønsberg", valueStyle: { fontSize: 22 } },
           { value: "Man–Fre fra 06:30", label: "Åpningstider", valueStyle: { fontSize: 22 } },
         ]}
@@ -149,7 +149,7 @@ export default function KontaktPage() {
                 <div className="contact-row">
                   <span className="key">E-post</span>
                   <span className="val">
-                    <a href="mailto:artrosefysio@gmail.com">artrosefysio@gmail.com</a>
+                    <a href="mailto:artrosefys@gmail.com">artrosefys@gmail.com</a>
                   </span>
                 </div>
                 <div className="contact-row">
@@ -182,10 +182,10 @@ export default function KontaktPage() {
               <p className="body" style={{ marginTop: 20, maxWidth: 380 }}>
                 Send oss en e-post på{" "}
                 <a
-                  href="mailto:artrosefysio@gmail.com"
+                  href="mailto:artrosefys@gmail.com"
                   style={{ color: "var(--brand-red)", borderBottom: "1px solid currentColor" }}
                 >
-                  artrosefysio@gmail.com
+                  artrosefys@gmail.com
                 </a>{" "}
                 hvis du ikke finner svaret.
               </p>

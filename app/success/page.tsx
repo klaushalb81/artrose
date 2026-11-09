@@ -62,7 +62,7 @@ export default async function SuccessPage({ searchParams }: PageProps<"/success"
         <Message
           eyebrow="Betaling mottatt"
           title="Gjør klar videoene dine …"
-          text="Dette tar vanligvis bare noen sekunder. Siden oppdaterer seg selv. Hvis ingenting skjer innen ett minutt, send oss en e-post på artrosefysio@gmail.com, så ordner vi det."
+          text="Dette tar vanligvis bare noen sekunder. Siden oppdaterer seg selv. Hvis ingenting skjer innen ett minutt, send oss en e-post på artrosefys@gmail.com, så ordner vi det."
         />
       </>
     );

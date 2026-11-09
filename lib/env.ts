@@ -64,7 +64,7 @@ export function adminEnv(): AdminEnv {
 }
 
 /**
- * Optional: e-mail sending via Gmail (artrosefysio@gmail.com) with a Google
+ * Optional: e-mail sending via Gmail (artrosefys@gmail.com) with a Google
  * "app password". If either is missing, the site works but sends no e-mail.
  */
 const emailSchema = z.object({

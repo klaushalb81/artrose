@@ -45,7 +45,7 @@ export default function SiteFooter() {
             <h4>Kontakt</h4>
             <ul>
               <li>
-                <a href="mailto:artrosefysio@gmail.com">artrosefysio@gmail.com</a>
+                <a href="mailto:artrosefys@gmail.com">artrosefys@gmail.com</a>
               </li>
               <li>Sterk Kropp</li>
               <li>Teglhageveien 29, 3125 Tønsberg</li>

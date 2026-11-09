@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head><meta charset="utf-8" /><title>Netlify form detection</title></head>
+  <body>
+    <!--
+      Not a page for visitors. Netlify scans this file at deploy time to register the
+      "bestilling" form used by components/BookingForm.tsx, which posts here with fetch.
+      Every field the real form sends must be listed here.
+    -->
+    <form name="bestilling" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="bestilling" />
+      <input name="bot-field" />
+      <input name="navn" />
+      <input name="telefon" />
+      <input name="epost" />
+      <input name="ledd" />
+      <input name="diagnose" />
+      <textarea name="melding"></textarea>
+      <input name="tidspunkt" />
+    </form>
+  </body>
+</html>

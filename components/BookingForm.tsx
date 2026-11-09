@@ -1,15 +1,53 @@
 "use client";
 
-import type { FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 
+/**
+ * Contact / booking request form.
+ *
+ * Submissions go to Netlify Forms (form "bestilling", registered via
+ * public/__forms.html) and are e-mailed to the clinic by a Netlify
+ * "Submission notification". Only works on Netlify, not in `next dev`.
+ */
 export default function BookingForm() {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    alert("Takk! Vi ringer deg så snart som mulig.");
+    setStatus("sending");
+    const data = new FormData(event.currentTarget);
+    try {
+      const response = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      setStatus("sent");
+    } catch (error) {
+      console.error("[booking form] submit failed", error);
+      setStatus("error");
+    }
+  }
+
+  if (status === "sent") {
+    return (
+      <div className="callout" style={{ margin: 0 }} role="status">
+        <span className="label">Takk!</span>
+        <p>Forespørselen din er sendt. Vi tar kontakt så snart som mulig.</p>
+      </div>
+    );
   }
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" name="bestilling" onSubmit={handleSubmit}>
+      <input type="hidden" name="form-name" value="bestilling" />
+      {/* Spam trap: hidden from people, bots tend to fill it in. */}
+      <p hidden>
+        <label>
+          Ikke fyll ut dette feltet: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+        </label>
+      </p>
       <div className="form-row">
         <div className="form-field">
           <label htmlFor="navn">
@@ -72,17 +110,30 @@ export default function BookingForm() {
       </div>
 
       <div className="form-actions">
-        <button type="submit" className="btn btn-filled">
-          Send forespørsel <span className="arrow">→</span>
+        <button type="submit" className="btn btn-filled" disabled={status === "sending"}>
+          {status === "sending" ? (
+            "Sender …"
+          ) : (
+            <>
+              Send forespørsel <span className="arrow">→</span>
+            </>
+          )}
         </button>
-        <a href="mailto:artrosefysio@gmail.com" className="btn">
-          Send e-post i stedet
-        </a>
       </div>
 
+      {status === "error" && (
+        <p className="admin-error" role="alert">
+          Beklager, forespørselen kunne ikke sendes. Prøv igjen, eller send en e-post til{" "}
+          <a href="mailto:artrosefysio@gmail.com" style={{ textDecoration: "underline" }}>
+            artrosefysio@gmail.com
+          </a>
+          .
+        </p>
+      )}
+
       <p className="caption" style={{ marginTop: 8 }}>
-        Vi behandler personopplysninger konfidensielt iht. personvernloven. Skjemaet sendes kun til
-        klinikken.
+        Vi behandler personopplysninger konfidensielt iht. personvernloven. Skjemaet sendes til
+        artrosefysio@gmail.com.
       </p>
     </form>
   );

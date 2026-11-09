@@ -63,6 +63,24 @@ export function adminEnv(): AdminEnv {
   return adminCached;
 }
 
+/**
+ * Optional: e-mail sending via Gmail (artrosefysio@gmail.com) with a Google
+ * "app password". If either is missing, the site works but sends no e-mail.
+ */
+const emailSchema = z.object({
+  GMAIL_USER: z.email(),
+  // 16 characters from https://myaccount.google.com/apppasswords (spaces allowed)
+  GMAIL_APP_PASSWORD: z.string().transform((v) => v.replace(/\s/g, "")).pipe(z.string().min(16)),
+});
+
+export type EmailEnv = z.infer<typeof emailSchema>;
+
+/** Returns the Gmail settings, or null if e-mail isn't configured. */
+export function emailEnv(): EmailEnv | null {
+  const result = emailSchema.safeParse(process.env);
+  return result.success ? result.data : null;
+}
+
 /** Parse and cache env vars on first use (so `next build` doesn't need them). */
 export function env(): Env {
   if (cached) return cached;

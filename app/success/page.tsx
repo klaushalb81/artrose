@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import RefreshPoller from "@/components/RefreshPoller";
-import { env } from "@/lib/env";
+import { emailEnv, env } from "@/lib/env";
 import { formatDateNb } from "@/lib/format";
 import { getVideoPackage } from "@/lib/package";
 import { getPurchaseByCheckoutSession } from "@/lib/purchases";
@@ -96,6 +96,7 @@ export default async function SuccessPage({ searchParams }: PageProps<"/success"
           <span className="label">Din personlige lenke</span>
           <p style={{ wordBreak: "break-all", fontFamily: "monospace", fontSize: 14 }}>{watchUrl}</p>
           <p style={{ marginTop: 16 }}>
+            {emailEnv() && "Vi har også sendt lenken til e-postadressen din (sjekk søppelpost hvis den ikke dukker opp). "}
             Lenken virker til og med <strong style={{ color: "var(--ink)" }}>{formatDateNb(purchase.expiresAt)}</strong>.
             Lagre den som bokmerke, eller send den til deg selv på e-post, så kan du se alle videoene så ofte du
             vil fram til da. Du trenger ikke passord eller innlogging.

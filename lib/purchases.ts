@@ -198,3 +198,22 @@ export async function getSalesStats(): Promise<SalesStats> {
   `;
   return { paidCount: rows[0].paid_count, revenue: rows[0].revenue };
 }
+
+/** For the admin "resend link" button. Only paid purchases with an e-mail address. */
+export async function getPurchaseForResend(
+  id: string,
+): Promise<{ email: string; viewingToken: string; expiresAt: Date } | null> {
+  const rows = await sql()<{ customer_email: string | null; viewing_token_encrypted: string; expires_at: Date }[]>`
+    select customer_email, viewing_token_encrypted, expires_at
+    from purchases
+    where id = ${id} and payment_status = 'paid'
+    limit 1
+  `;
+  const row = rows[0];
+  if (!row?.customer_email) return null;
+  return {
+    email: row.customer_email,
+    viewingToken: decryptViewingToken(row.viewing_token_encrypted, encryptionKey()),
+    expiresAt: row.expires_at,
+  };
+}

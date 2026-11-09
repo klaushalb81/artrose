@@ -4,11 +4,11 @@ import { env } from "@/lib/env";
 import { formatDateNb } from "@/lib/format";
 import { listPurchasesForAdmin } from "@/lib/purchases";
 import { formatPrice } from "@/lib/videos";
-import { extendPurchaseAction } from "../actions";
+import { extendPurchaseAction, resendLinkAction } from "../actions";
 
 export default async function SalesPage({ searchParams }: PageProps<"/admin/salg">) {
   await requireAdmin();
-  const { q } = await searchParams;
+  const { q, epost } = await searchParams;
   const search = typeof q === "string" ? q.trim().slice(0, 200) : "";
   const purchases = await listPurchasesForAdmin(search);
   const now = new Date();
@@ -32,6 +32,15 @@ export default async function SalesPage({ searchParams }: PageProps<"/admin/salg
           </button>
         </form>
       </div>
+
+      {epost === "sendt" && <p className="admin-ok">Lenken er sendt på e-post.</p>}
+      {epost === "feil" && (
+        <p className="admin-error">
+          E-posten kunne ikke sendes. Sjekk at GMAIL_USER og GMAIL_APP_PASSWORD er satt i Netlify, eller kopier lenken og
+          send den selv.
+        </p>
+      )}
+      {epost === "mangler" && <p className="admin-error">Fant ingen e-postadresse for dette kjøpet.</p>}
 
       {purchases.length === 0 ? (
         <p className="body">{search ? "Ingen treff." : "Ingen salg ennå."}</p>
@@ -73,6 +82,14 @@ export default async function SalesPage({ searchParams }: PageProps<"/admin/salg
                     </td>
                     <td className="admin-row-actions">
                       {url && p.payment_status === "paid" && <CopyLinkButton url={url} />}
+                      {p.payment_status === "paid" && p.customer_email && (
+                        <form action={resendLinkAction}>
+                          <input type="hidden" name="id" value={p.id} />
+                          <button type="submit" className="admin-link-btn" title={`Send lenken til ${p.customer_email}`}>
+                            Send e-post
+                          </button>
+                        </form>
+                      )}
                       {p.payment_status === "paid" && (
                         <form action={extendPurchaseAction}>
                           <input type="hidden" name="id" value={p.id} />

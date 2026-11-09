@@ -1,5 +1,7 @@
 import type Stripe from "stripe";
+import { sendViewingLinkEmail } from "@/lib/email";
 import { env } from "@/lib/env";
+import { getVideoPackage } from "@/lib/package";
 import { stripe } from "@/lib/stripe";
 import { createPaidPurchase, markRefundedByPaymentIntent } from "@/lib/purchases";
 
@@ -85,10 +87,11 @@ async function fulfillCheckoutSession(session: Stripe.Checkout.Session, eventTim
     return;
   }
 
+  const customerEmail = session.customer_details?.email ?? null;
   const result = await createPaidPurchase({
     checkoutSessionId: session.id,
     paymentIntentId: typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null),
-    customerEmail: session.customer_details?.email ?? null,
+    customerEmail,
     amountTotal: session.amount_total ?? null,
     currency: session.currency ?? null,
     paidAt: eventTime,
@@ -100,6 +103,22 @@ async function fulfillCheckoutSession(session: Stripe.Checkout.Session, eventTim
   }
 
   console.info(`[webhook] purchase created for session ${session.id}, expires ${result.expiresAt.toISOString()}`);
-  // Optional: send result.viewingToken by email here (keep it separate from the
-  // access logic above — a failed email must not undo the purchase).
+
+  // E-mail the link. Only on first fulfilment (duplicates returned above), and a
+  // failed e-mail never undoes the purchase — the admin can resend it from /admin/salg.
+  if (customerEmail) {
+    try {
+      const pkg = await getVideoPackage();
+      const mail = await sendViewingLinkEmail({
+        to: customerEmail,
+        watchUrl: `${env().SITE_URL}/watch/${result.viewingToken}`,
+        expiresAt: result.expiresAt,
+        packageTitle: pkg.title,
+      });
+      if (mail.sent) console.info(`[webhook] viewing link e-mailed for session ${session.id}`);
+      else console.warn(`[webhook] viewing link not e-mailed for session ${session.id}: ${mail.reason}`);
+    } catch (error) {
+      console.error(`[webhook] e-mail step failed for session ${session.id}`, error);
+    }
+  }
 }

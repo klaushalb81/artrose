@@ -4,8 +4,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { endAdminSession, requireAdmin, startAdminSession } from "@/lib/admin-auth";
 import { deleteStreamVideo, getStreamVideo, requireSignedUrls } from "@/lib/cloudflare-api";
-import { packageInputSchema, updateVideoPackage } from "@/lib/package";
-import { extendPurchase } from "@/lib/purchases";
+import { sendViewingLinkEmail } from "@/lib/email";
+import { env } from "@/lib/env";
+import { extendPurchase, getPurchaseForResend } from "@/lib/purchases";
+import { getVideoPackage, packageInputSchema, updateVideoPackage } from "@/lib/package";
 import {
   createVideo,
   deleteVideo,
@@ -151,4 +153,20 @@ export async function extendPurchaseAction(formData: FormData): Promise<void> {
   const id = videoIdSchema.parse(formData.get("id"));
   await extendPurchase(id);
   revalidatePath("/admin/salg");
+}
+
+export async function resendLinkAction(formData: FormData): Promise<void> {
+  await requireAdmin();
+  const id = videoIdSchema.parse(formData.get("id"));
+  const purchase = await getPurchaseForResend(id);
+  if (!purchase) redirect("/admin/salg?epost=mangler");
+
+  const pkg = await getVideoPackage();
+  const result = await sendViewingLinkEmail({
+    to: purchase.email,
+    watchUrl: `${env().SITE_URL}/watch/${purchase.viewingToken}`,
+    expiresAt: purchase.expiresAt,
+    packageTitle: pkg.title,
+  });
+  redirect(result.sent ? "/admin/salg?epost=sendt" : "/admin/salg?epost=feil");
 }

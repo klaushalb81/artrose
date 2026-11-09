@@ -29,6 +29,10 @@ const faq = [
   },
 ];
 
+const MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=" +
+  encodeURIComponent("Sterk Kropp, Teglhageveien 29, 3125 Tønsberg");
+
 export default function KontaktPage() {
   return (
     <>
@@ -80,7 +84,14 @@ export default function KontaktPage() {
                 Slik finner du oss.
               </h2>
 
-              <div className="map-placeholder" style={{ marginBottom: 32 }}>
+              <a
+                href={MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="map-placeholder"
+                style={{ marginBottom: 32, display: "block" }}
+                aria-label="Åpne Sterk Kropp, Teglhageveien 29, Tønsberg i Google Maps"
+              >
                 <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
                   <g stroke="currentColor" strokeWidth="0.6" fill="none" strokeOpacity="0.5">
                     {/* Streets grid */}
@@ -118,7 +129,7 @@ export default function KontaktPage() {
                   <div className="dot"></div>
                   <div className="label-pill">Teglhageveien 29</div>
                 </div>
-              </div>
+              </a>
 
               <div className="contact-info">
                 <div className="contact-row">
@@ -129,6 +140,10 @@ export default function KontaktPage() {
                     Teglhageveien 29
                     <br />
                     3125 Tønsberg
+                    <br />
+                    <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="text-link">
+                      Vis i Google Maps
+                    </a>
                   </span>
                 </div>
                 <div className="contact-row">

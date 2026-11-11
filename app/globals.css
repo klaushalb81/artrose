@@ -167,6 +167,39 @@ img, svg { display: block; max-width: 100%; }
 }
 .nav-icon:hover { background: var(--surface-card); border-color: var(--ink); }
 
+/* Phone/tablet menu (☰) */
+.nav-toggle { display: none; flex-shrink: 0; }
+.nav-cta { white-space: nowrap; }
+.mobile-menu {
+  position: absolute; top: 100%; left: 0; right: 0;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline-strong);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
+  padding: 8px 0 16px;
+  max-height: calc(100vh - 64px); overflow-y: auto;
+}
+.mobile-link {
+  display: block; padding: 16px 0;
+  font-size: 18px; font-weight: 500; color: var(--body-strong);
+  border-bottom: 1px solid var(--hairline-strong);
+}
+.mobile-link:last-child { border-bottom: 0; }
+.mobile-link:hover, .mobile-link.active { color: var(--ink); }
+.mobile-link.active { box-shadow: inset 3px 0 0 var(--brand-red); padding-left: 14px; }
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: inline-flex; }
+}
+@media (min-width: 901px) {
+  .mobile-menu { display: none; }
+}
+@media (max-width: 640px) {
+  .nav-actions .nav-cta { width: auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+  .nav-actions { gap: 8px; }
+  .nav-inner { gap: 12px; }
+  .nav-brand { font-size: 16px; gap: 10px; white-space: nowrap; }
+}
+
 /* ============================================================
    BUTTONS
    ============================================================ */

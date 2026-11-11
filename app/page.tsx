@@ -87,7 +87,7 @@ export default function Home() {
           {
             value: (
               <>
-                12<sup>+ år</sup>
+                10<sup>+ år</sup>
               </>
             ),
             label: "Klinisk erfaring",

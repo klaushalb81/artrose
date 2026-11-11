@@ -92,22 +92,15 @@ export default function Home() {
             ),
             label: "Klinisk erfaring",
           },
-          { value: "1 400", label: "Pasienter behandlet" },
+          { value: "2015", label: "Utdannet fysioterapeut i København" },
+          { value: "GLAD + AktivA", label: "Sertifisert i Danmark og Norge", valueStyle: { fontSize: "clamp(28px, 3.2vw, 44px)" } },
           {
             value: (
               <>
-                4,9<sup>/ 5</sup>
+                6<sup> mnd</sup>
               </>
             ),
-            label: "Snittvurdering",
-          },
-          {
-            value: (
-              <>
-                86<sup>%</sup>
-              </>
-            ),
-            label: "Får bedring av plagene",
+            label: "Tilgang til treningsvideoene",
           },
         ]}
       />

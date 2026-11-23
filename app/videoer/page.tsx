@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import { getVideoPackage } from "@/lib/package";
 import { formatPrice, listActiveVideos } from "@/lib/videos";
@@ -13,6 +14,7 @@ export const dynamic = "force-dynamic";
 
 const errorMessages: Record<string, string> = {
   ugyldig: "Noe gikk galt. Prøv igjen.",
+  samtykke: "Du må krysse av i boksen over kjøpsknappen før du kan gå videre til betaling.",
   ingen: "Videoene er ikke tilgjengelige for kjøp akkurat nå. Prøv igjen senere.",
   betaling: "Noe gikk galt da vi skulle starte betalingen. Prøv igjen om et øyeblikk.",
 };
@@ -58,7 +60,14 @@ export default async function VideoerPage({ searchParams }: PageProps<"/videoer"
                 </small>
               </div>
               {videos.length > 0 ? (
-                <form action="/api/checkout" method="POST">
+                <form action="/api/checkout" method="POST" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  <label className="consent">
+                    <input type="checkbox" name="samtykke" value="ja" required />
+                    <span>
+                      Jeg vil ha tilgang med en gang og forstår at <strong>angreretten går tapt</strong> når tilgangen er
+                      levert. Jeg godtar <Link href="/salgsbetingelser">salgsbetingelsene</Link>.
+                    </span>
+                  </label>
                   <button type="submit" className="btn btn-filled" style={{ width: "100%" }}>
                     Kjøp tilgang <span className="arrow">→</span>
                   </button>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BUSINESS } from "@/lib/business";
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
@@ -55,9 +56,12 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span className="caption">© {year} Artrosefysio · Org. 000 000 000</span>
           <span className="caption">
-            <a href="#">Personvern</a> · <a href="#">Cookies</a> · NO
+            © {year} {BUSINESS.legalName} · Org.nr. {BUSINESS.orgNumber}
+          </span>
+          <span className="caption">
+            <Link href="/salgsbetingelser">Salgsbetingelser</Link> · <Link href="/personvern">Personvern</Link> ·{" "}
+            <Link href="/personvern#informasjonskapsler">Cookies</Link>
           </span>
         </div>
       </div>

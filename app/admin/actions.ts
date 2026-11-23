@@ -167,6 +167,9 @@ export async function resendLinkAction(formData: FormData): Promise<void> {
     watchUrl: `${env().SITE_URL}/watch/${purchase.viewingToken}`,
     expiresAt: purchase.expiresAt,
     packageTitle: pkg.title,
+    amountTotal: purchase.amountTotal,
+    paidAt: purchase.paidAt,
+    siteUrl: env().SITE_URL,
   });
   redirect(result.sent ? "/admin/salg?epost=sendt" : "/admin/salg?epost=feil");
 }

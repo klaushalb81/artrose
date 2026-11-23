@@ -10,13 +10,30 @@ export const dynamic = "force-dynamic";
 const PACKAGE_PRODUCT = "video_package";
 
 /**
- * POST /api/checkout  (plain HTML form submit, no fields needed)
+ * Version of the consent text shown next to the buy button on /videoer. The consent
+ * (start delivery now, right of withdrawal lapses — angrerettloven § 22 bokstav n)
+ * is stored on the Stripe payment and repeated in the order e-mail.
+ */
+const CONSENT_VERSION = "angrerett-digitalt-innhold-v1";
+
+/**
+ * POST /api/checkout  (plain HTML form submit; field "samtykke" = "ja" is required)
  *
  * Creates a Stripe Checkout Session for the video package (6 months of access to
  * all videos) and redirects the customer to Stripe. Name and price always come
  * from our database, never from the form.
  */
-export async function POST() {
+export async function POST(request: Request) {
+  let consented = false;
+  try {
+    consented = (await request.formData()).get("samtykke") === "ja";
+  } catch {
+    // fall through: treated as not consented
+  }
+  if (!consented) {
+    return NextResponse.redirect(new URL("/videoer?feil=samtykke", env().SITE_URL), 303);
+  }
+
   try {
     const [pkg, videos] = await Promise.all([getVideoPackage(), listActiveVideos()]);
     if (videos.length === 0) {
@@ -39,7 +56,11 @@ export async function POST() {
           },
         },
       ],
-      metadata: { product: PACKAGE_PRODUCT },
+      metadata: {
+        product: PACKAGE_PRODUCT,
+        consent: CONSENT_VERSION,
+        consent_at: new Date().toISOString(),
+      },
       // {CHECKOUT_SESSION_ID} is substituted by Stripe. The success page verifies
       // the session with Stripe's API; it never trusts the URL alone.
       success_url: `${env().SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,

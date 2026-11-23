@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 
 /**
@@ -109,6 +110,15 @@ export default function BookingForm() {
         </select>
       </div>
 
+      <label className="consent">
+        <input type="checkbox" name="samtykke" value="ja" required />
+        <span>
+          Jeg samtykker til at Artrosefysio behandler opplysningene i skjemaet, også helseopplysninger, for å kontakte meg
+          om time. Jeg kan trekke samtykket når som helst. Les mer i{" "}
+          <Link href="/personvern">personvernerklæringen</Link>.
+        </span>
+      </label>
+
       <div className="form-actions">
         <button type="submit" className="btn btn-filled" disabled={status === "sending"}>
           {status === "sending" ? (
@@ -132,8 +142,7 @@ export default function BookingForm() {
       )}
 
       <p className="caption" style={{ marginTop: 8 }}>
-        Vi behandler personopplysninger konfidensielt iht. personvernloven. Skjemaet sendes til
-        artrosefys@gmail.com.
+        Opplysningene behandles konfidensielt og brukes bare til å kontakte deg om time.
       </p>
     </form>
   );

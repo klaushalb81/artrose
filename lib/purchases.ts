@@ -202,9 +202,11 @@ export async function getSalesStats(): Promise<SalesStats> {
 /** For the admin "resend link" button. Only paid purchases with an e-mail address. */
 export async function getPurchaseForResend(
   id: string,
-): Promise<{ email: string; viewingToken: string; expiresAt: Date } | null> {
-  const rows = await sql()<{ customer_email: string | null; viewing_token_encrypted: string; expires_at: Date }[]>`
-    select customer_email, viewing_token_encrypted, expires_at
+): Promise<{ email: string; viewingToken: string; expiresAt: Date; paidAt: Date; amountTotal: number | null } | null> {
+  const rows = await sql()<
+    { customer_email: string | null; viewing_token_encrypted: string; expires_at: Date; paid_at: Date; amount_total: number | null }[]
+  >`
+    select customer_email, viewing_token_encrypted, expires_at, paid_at, amount_total
     from purchases
     where id = ${id} and payment_status = 'paid'
     limit 1
@@ -215,5 +217,7 @@ export async function getPurchaseForResend(
     email: row.customer_email,
     viewingToken: decryptViewingToken(row.viewing_token_encrypted, encryptionKey()),
     expiresAt: row.expires_at,
+    paidAt: row.paid_at,
+    amountTotal: row.amount_total,
   };
 }

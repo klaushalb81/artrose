@@ -1,5 +1,6 @@
 import "server-only";
 import nodemailer from "nodemailer";
+import { BUSINESS } from "./business";
 import { emailEnv } from "./env";
 import { formatDateNb } from "./format";
 
@@ -16,13 +17,37 @@ type ViewingLinkEmail = {
   watchUrl: string;
   expiresAt: Date;
   packageTitle: string;
+  /** Amount charged in øre, for the order summary. */
+  amountTotal: number | null;
+  paidAt: Date;
+  siteUrl: string;
 };
 
-export async function sendViewingLinkEmail({ to, watchUrl, expiresAt, packageTitle }: ViewingLinkEmail): Promise<SendResult> {
+function formatKr(ore: number): string {
+  return new Intl.NumberFormat("nb-NO", { style: "currency", currency: "NOK", maximumFractionDigits: 2 }).format(ore / 100);
+}
+
+export async function sendViewingLinkEmail({
+  to,
+  watchUrl,
+  expiresAt,
+  packageTitle,
+  amountTotal,
+  paidAt,
+  siteUrl,
+}: ViewingLinkEmail): Promise<SendResult> {
   const config = emailEnv();
   if (!config) return { sent: false, reason: "E-post er ikke satt opp (GMAIL_USER / GMAIL_APP_PASSWORD mangler)" };
 
   const validUntil = formatDateNb(expiresAt);
+  const purchased = formatDateNb(paidAt);
+  const price = amountTotal != null ? formatKr(amountTotal) : null;
+  const termsUrl = `${siteUrl}/salgsbetingelser`;
+  const seller = `${BUSINESS.legalName}, org.nr. ${BUSINESS.orgNumber}, ${BUSINESS.address}, ${BUSINESS.email}`;
+  // Required by angrerettloven §§ 11, 18 and 22 bokstav n: the confirmation must
+  // record that the customer consented to immediate delivery and lost the right of withdrawal.
+  const consentText =
+    "Du samtykket ved kjøpet til at tilgangen startet med en gang, og bekreftet at du dermed ikke har angrerett (angrerettloven § 22 bokstav n).";
 
   const text = [
     "Hei!",
@@ -40,6 +65,15 @@ export async function sendViewingLinkEmail({ to, watchUrl, expiresAt, packageTit
     "Vennlig hilsen",
     "Klaus Halbakken",
     "Artrosefysio",
+    "",
+    "— Ordrebekreftelse —",
+    `Produkt: ${packageTitle} (6 måneders tilgang til alle treningsvideoene)`,
+    `Kjøpt: ${purchased}`,
+    ...(price ? [`Pris: ${price} (totalpris, inkl. alle avgifter)`] : []),
+    `Tilgang til og med: ${validUntil}`,
+    `Selger: ${seller}`,
+    consentText,
+    `Salgsbetingelser: ${termsUrl}`,
   ].join("\n");
 
   const html = `<!doctype html>
@@ -56,6 +90,16 @@ export async function sendViewingLinkEmail({ to, watchUrl, expiresAt, packageTit
       <p style="margin:24px 0 16px;">Lenken virker til og med <strong>${escapeHtml(validUntil)}</strong>. Du trenger ikke passord eller innlogging — lagre gjerne denne e-posten. Lenken er personlig, så ikke del den med andre.</p>
       <p style="margin:0 0 24px;">Har du spørsmål, kan du svare på denne e-posten.</p>
       <p style="margin:0;">Vennlig hilsen<br />Klaus Halbakken<br />Artrosefysio</p>
+      <div style="margin-top:32px;padding-top:16px;border-top:1px solid #ddd;font-size:13px;color:#555;line-height:1.5;">
+        <p style="margin:0 0 8px;font-weight:bold;color:#111;">Ordrebekreftelse</p>
+        <p style="margin:0;">Produkt: ${escapeHtml(packageTitle)} (6 måneders tilgang til alle treningsvideoene)<br />
+        Kjøpt: ${escapeHtml(purchased)}<br />
+        ${price ? `Pris: ${escapeHtml(price)} (totalpris, inkl. alle avgifter)<br />` : ""}
+        Tilgang til og med: ${escapeHtml(validUntil)}<br />
+        Selger: ${escapeHtml(seller)}</p>
+        <p style="margin:8px 0 0;">${escapeHtml(consentText)}</p>
+        <p style="margin:8px 0 0;"><a href="${escapeHtml(termsUrl)}" style="color:#555;">Salgsbetingelser</a></p>
+      </div>
     </div>
   </body>
 </html>`;

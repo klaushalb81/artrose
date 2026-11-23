@@ -114,6 +114,9 @@ async function fulfillCheckoutSession(session: Stripe.Checkout.Session, eventTim
         watchUrl: `${env().SITE_URL}/watch/${result.viewingToken}`,
         expiresAt: result.expiresAt,
         packageTitle: pkg.title,
+        amountTotal: session.amount_total ?? null,
+        paidAt: eventTime,
+        siteUrl: env().SITE_URL,
       });
       if (mail.sent) console.info(`[webhook] viewing link e-mailed for session ${session.id}`);
       else console.warn(`[webhook] viewing link not e-mailed for session ${session.id}: ${mail.reason}`);

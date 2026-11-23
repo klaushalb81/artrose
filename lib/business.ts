@@ -9,11 +9,11 @@ export const BUSINESS = {
   /** Brand name used in running text. */
   brand: "Artrosefysio",
   /** Registered name in Brønnøysundregistrene (enkeltpersonforetak). */
-  legalName: "[fyll inn: registrert foretaksnavn]",
+  legalName: "Fysioterapeut Klaus Halbakken",
   /** 9 digits, shown as "123 456 789". Not MVA-registered. */
-  orgNumber: "[fyll inn: org.nr]",
+  orgNumber: "931 611 291",
   /** Registered business address. */
-  address: "[fyll inn: forretningsadresse]",
+  address: "Helga Hiorths vei 72, 3140 Nøtterøy",
   owner: "Klaus Halbakken",
   email: "artrosefys@gmail.com",
   clinic: "Sterk Kropp, Teglhageveien 29, 3125 Tønsberg",

@@ -355,7 +355,7 @@ export default function Home() {
         extended
         label="Kontakt"
         title="Klar for færre smerter og mer bevegelse?"
-        lede="Bestill en uforpliktende vurderingstime. Vi ringer deg samme dag for å avtale tidspunkt som passer."
+        lede="Bestill en uforpliktende vurderingstime. Vi ringer deg så snart som mulig for å avtale et tidspunkt som passer."
         secondary={
           <a href="mailto:artrosefys@gmail.com" className="btn">
             Send e-post

@@ -6,7 +6,7 @@ import BookingForm from "@/components/BookingForm";
 export const metadata: Metadata = {
   title: "Kontakt og bestill time | Artrosefysio",
   description:
-    "Bestill time hos Artrosefysio. E-post, åpningstider og adresse. Vi svarer samme dag.",
+    "Bestill time hos Artrosefysio. E-post, åpningstider og adresse. Vi svarer så snart som mulig.",
 };
 
 const faq = [
@@ -21,11 +21,11 @@ const faq = [
   },
   {
     q: "Kan jeg avbestille uten å betale?",
-    a: "Ja, så lenge du gir beskjed minst 24 timer før avtalt time. Senere avbestilling eller uteblivelse belastes etter full takst.",
+    a: "Ja, så lenge du gir beskjed minst 24 timer før avtalt time. Senere avbestilling eller uteblivelse belastes med full pris.",
   },
   {
     q: "Hvilke betalingsmåter tar dere?",
-    a: "Vipps, alle vanlige bankkort i klinikken, eller faktura på e-post uten gebyr.",
+    a: "Konsultasjoner betales med bankkort i klinikken eller med faktura på e-post. Treningsvideoene betales med kort her på nettsiden.",
   },
 ];
 
@@ -40,7 +40,7 @@ export default function KontaktPage() {
         crumb="Kontakt"
         eyebrow="Kontakt og bestilling"
         title="Bestill time."
-        lede="Send oss noen detaljer, så ringer vi deg samme dag for å avtale tidspunkt. Du kan også sende oss en e-post direkte."
+        lede="Send oss noen detaljer, så ringer vi deg så snart som mulig for å avtale tidspunkt. Du kan også sende oss en e-post direkte."
       />
 
       <div className="stripe"></div>
@@ -65,7 +65,7 @@ export default function KontaktPage() {
                 <span className="stripe-inline"></span> Bestillingsskjema
               </div>
               <h2 className="display-md" style={{ marginBottom: 16 }}>
-                Vi ringer deg samme dag.
+                Vi ringer deg så snart som mulig.
               </h2>
               <p className="body" style={{ marginBottom: 32, maxWidth: 560 }}>
                 Fyll ut skjemaet så enkelt eller detaljert du vil. Alle felt merket med{" "}

@@ -109,15 +109,14 @@ export default function PriserPage() {
             <div className="article-body">
               <h3>Betalingsmåter</h3>
               <ul>
-                <li>Vipps</li>
-                <li>Kortbetaling i klinikken (alle vanlige kort)</li>
-                <li>Faktura på e-post (uten gebyr)</li>
+                <li>Konsultasjoner: bankkort i klinikken eller faktura på e-post</li>
+                <li>Videopakken: kort på nettsiden, ved kjøp</li>
               </ul>
 
               <h3>Avbestilling</h3>
               <ul>
                 <li>Avbestilling senest 24 timer før timen — uten kostnad</li>
-                <li>Senere avbestilling eller uteblivelse: full takst belastes</li>
+                <li>Senere avbestilling eller uteblivelse: full pris belastes</li>
                 <li>Akutt sykdom: gi oss beskjed, så finner vi en løsning</li>
               </ul>
 
